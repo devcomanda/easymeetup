@@ -3,10 +3,12 @@ package com.devcomanda.easymeetup.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Table(name = "meetup")
 public class Meetup {
     @Id
     @GeneratedValue
@@ -18,16 +20,6 @@ public class Meetup {
     private String meetupSpeaker;
 
     public Meetup(){
-
-    }
-
-    public Meetup(String meetupName, String meetupAddress, LocalDateTime meetupDate,
-                  String meetupDescription, String meetupSpeaker) {
-        this.meetupName = meetupName;
-        this.meetupAddress = meetupAddress;
-        this.meetupDate = meetupDate;
-        this.meetupDescription = meetupDescription;
-        this.meetupSpeaker = meetupSpeaker;
     }
 
     public Long getId() {

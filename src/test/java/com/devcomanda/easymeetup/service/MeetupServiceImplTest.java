@@ -7,13 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class MeetupServiceImplTest {
 
     @Mock
@@ -31,11 +29,11 @@ public class MeetupServiceImplTest {
     }
 
     @Test
-    public void saveOrUpdateMeetupTest(){
+    public void saveMeetupTest(){
         Mockito.when(meetupRepository.save(expectedMeetup))
                 .thenReturn(expectedMeetup);
 
-       Meetup actualMeetup = meetupService.saveOrUpdateMeetup(expectedMeetup);
+       Meetup actualMeetup = meetupService.saveMeetup(expectedMeetup);
 
        assertThat(actualMeetup).isNotNull()
                 .isEqualTo(expectedMeetup)

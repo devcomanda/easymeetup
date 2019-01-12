@@ -13,7 +13,7 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
-    public Meetup saveOrUpdateMeetup(Meetup meetUp) {
+    public Meetup saveMeetup(Meetup meetUp) {
         return meetUpRepository.save(meetUp);
     }
 }
