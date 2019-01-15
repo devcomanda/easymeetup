@@ -31,6 +31,7 @@ public class MeetupServiceImplTest {
     public void setup(){
         meetupService = new MeetupServiceImpl(meetupRepository);
         expectedMeetup = new Meetup();
+        expectedMeetup.setId(1L);
         expectedMeetup.setMeetupName("DNA programming with java");
         nextMeetup = new Meetup();
         nextMeetup.setMeetupName("Space crafts java programming");
@@ -53,7 +54,7 @@ public class MeetupServiceImplTest {
     }
 
     @Test
-    public void findAllMeetupdTest(){
+    public void findAllMeetupsTest(){
         Mockito.when(meetupRepository.findAll())
                 .thenReturn(meetups);
 
@@ -62,5 +63,15 @@ public class MeetupServiceImplTest {
         assertThat(actualMeetups).isNotNull()
                 .isEqualTo(meetups)
                 .containsSequence(expectedMeetup, nextMeetup);
+    }
+
+    @Test
+    public void findMeetupById(){
+        Mockito.when(meetupRepository.getOne(1l)).thenReturn(expectedMeetup);
+
+        Meetup actualMeetup = meetupService.findMeetuById(1L);
+
+        assertThat(actualMeetup).isEqualTo(expectedMeetup)
+                                .isEqualToComparingFieldByField(expectedMeetup);
     }
 }
