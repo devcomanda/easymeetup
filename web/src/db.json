@@ -1,0 +1,28 @@
+{
+  "event": [
+    {
+      "id": 1212,
+      "title": "CopyRight Automatico",
+      "address": "Kiev, Main street 15",
+      "date": "12.12.2018",
+      "description": "Js",
+      "speaker": "Ilon Mask"
+    },
+    {
+      "id": 1213,
+      "title": "CopyRight Automatico",
+      "address": "Kiev, Main street 15",
+      "date": "13.12.2018",
+      "description": "Js",
+      "speaker": "Ilon Mask"
+    },
+    {
+      "id": 1214,
+      "title": "CopyRight Automatico",
+      "address": "Kiev, Main street 15",
+      "date": "12.12.2018",
+      "description": "Js",
+      "speaker": "Ilon Mask"
+    }
+  ]
+}
