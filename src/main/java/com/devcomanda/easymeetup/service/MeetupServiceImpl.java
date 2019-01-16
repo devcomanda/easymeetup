@@ -15,6 +15,11 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
+    public Meetup findMeetuById(Long id) {
+        return meetUpRepository.getOne(id);
+    }
+
+    @Override
     public Meetup saveMeetup(Meetup meetUp) {
         return meetUpRepository.save(meetUp);
     }
