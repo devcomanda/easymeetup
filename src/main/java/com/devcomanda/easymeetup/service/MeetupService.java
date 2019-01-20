@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface MeetupService {
 
-    Meetup findMeetuById(Long id);
+    Meetup loadMeetup(Long id);
 
     Meetup saveMeetup(Meetup meetUp);
 
-    List<Meetup> findAllMeetups();
+    List<Meetup> loadMeetups();
+
+    Meetup updateMeetup(Meetup changedMeetup);
 }

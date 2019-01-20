@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1
+    name:
+    username:
+    password:
+    initialization-mode: never
+
+jwt:
+  secretKey: "some-key"
+  tokenValidityInMilliseconds: 86400000
