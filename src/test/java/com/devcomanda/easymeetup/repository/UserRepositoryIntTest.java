@@ -43,4 +43,22 @@ public class UserRepositoryIntTest {
         actual.hasAuthority(AuthoritiesFactory.USER_AUTHORITY_NAME);
     }
 
+    @Test
+    @Sql("classpath:/datasets/users/firstUser.sql")
+    @Sql("classpath:/datasets/authorities/userAuthority.sql")
+    public void shouldReturnUserByEmail(){
+
+        Optional<User> user = this.userRepository.findByEmail(UsersFactory.FIRST_USER_EMAIL);
+
+        assertThat(user).isPresent();
+
+        User actual = user.get();
+
+        assertThat(actual).isEqualTo(
+                UsersFactory.firstUser()
+        );
+
+        actual.hasAuthority(AuthoritiesFactory.USER_AUTHORITY_NAME);
+    }
+
 }

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,8 +35,8 @@ public class User extends AbstractPersistable<Long> {
 
     private String password;
 
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -48,6 +49,7 @@ public class User extends AbstractPersistable<Long> {
         this.password = password;
     }
 
+    // sync methods
     public void addAuthorities(Authority authority) {
         this.authorities.add(authority);
     }
@@ -58,6 +60,10 @@ public class User extends AbstractPersistable<Long> {
 
     public boolean hasAuthority(final String name) {
         return this.authorities.contains(new Authority(name));
+    }
+
+    public Set<Authority> authorities() {
+        return Collections.unmodifiableSet(this.authorities);
     }
 
     @Override
