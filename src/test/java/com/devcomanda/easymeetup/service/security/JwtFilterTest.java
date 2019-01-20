@@ -30,7 +30,7 @@ public class JwtFilterTest {
     private JwtFilter jwtFilter;
 
     @Before
-    public void setup() {
+    public void setUp() {
         this.tokenProvider = new TokenProvider();
         ReflectionTestUtils.setField(this.tokenProvider, "secretKey", "test secret");
         ReflectionTestUtils.setField(this.tokenProvider, "tokenValidityInMilliseconds", 60000);

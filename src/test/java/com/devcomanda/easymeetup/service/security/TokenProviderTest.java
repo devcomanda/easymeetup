@@ -28,7 +28,7 @@ public class TokenProviderTest {
     private TokenProvider tokenProvider;
 
     @Before
-    public void setup() {
+    public void setUp() {
         this.tokenProvider = new TokenProvider();
         ReflectionTestUtils.setField(this.tokenProvider, "secretKey", TokenProviderTest.SECRET_KEY);
         ReflectionTestUtils.setField(this.tokenProvider, "tokenValidityInMilliseconds", TokenProviderTest.ONE_MINUTE);
