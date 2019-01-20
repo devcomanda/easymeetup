@@ -10,7 +10,7 @@ public final class UsersFactory {
 
     public static final Long FIRST_USER_ID = 1L;
     public static final String FIRST_USER_EMAIL = "email@email.com";
-    public static final String FIRST_USER_PLAIN_PASSWORD = "plain-password";
+    public static final String FIRST_USER_PLAIN_PASSWORD = "user";
 
     public static User firstUser() {
         User user = new User(FIRST_USER_EMAIL, FIRST_USER_PLAIN_PASSWORD);

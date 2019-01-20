@@ -2,6 +2,7 @@ package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.entity.Meetup;
 import com.devcomanda.easymeetup.service.MeetupService;
+import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -20,15 +24,18 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MeetupController.class)
+@WithMockUser
+@MockBeans(value = {
+        @MockBean(UserDetailsService.class),
+        @MockBean(TokenProvider.class)
+})
 public class MeetupControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -41,7 +48,7 @@ public class MeetupControllerTest {
     private List<Meetup> meetups = new ArrayList<>();
 
     @Before
-    public void setup(){
+    public void setup() {
         expectedMeetup = new Meetup();
         expectedMeetup.setId(1L);
         expectedMeetup.setMeetupName("Java for sceptics");
@@ -65,7 +72,7 @@ public class MeetupControllerTest {
     }
 
     @Test
-    public void findAllMeetupsTest() throws Exception{
+    public void findAllMeetupsTest() throws Exception {
         given(meetupService.findAllMeetups()).willReturn(meetups);
         mockMvc.perform(get("/api/meetups")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -76,7 +83,7 @@ public class MeetupControllerTest {
     }
 
     @Test
-    public void returnNoContentStatus_whenFindAllMeetups() throws Exception{
+    public void returnNoContentStatus_whenFindAllMeetups() throws Exception {
         mockMvc.perform(get("/api/meetups")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -84,7 +91,7 @@ public class MeetupControllerTest {
     }
 
     @Test
-    public void updateMeetupTest() throws Exception{
+    public void updateMeetupTest() throws Exception {
         given(meetupService.findMeetuById(expectedMeetup.getId())).willReturn(expectedMeetup);
         when(meetupService.saveMeetup(expectedMeetup)).thenReturn(expectedMeetup);
         mockMvc.perform(put("/api/meetups/{1}", 1)
@@ -96,11 +103,10 @@ public class MeetupControllerTest {
                 .andExpect(jsonPath("$.meetupName").value("Java for sceptics"));
     }
 
-    public static String asJsonString(final Object object){
+    public static String asJsonString(final Object object) {
         try {
             return new ObjectMapper().writeValueAsString(object);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
