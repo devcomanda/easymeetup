@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -23,6 +24,12 @@ public class MeetupController {
 
     public MeetupController(final MeetupService meetUpService) {
         this.meetUpService = meetUpService;
+    }
+
+    @GetMapping(path = "/meetups/{id}", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<Meetup> getMeetupById(@PathVariable ("id") Long id){
+        Optional<Meetup> meetup = meetUpService.findMeetupById(id);
+        return new ResponseEntity<>(meetup.get(), HttpStatus.FOUND);
     }
 
     @PostMapping(path = "/meetups", produces = "application/json;charset=UTF-8")
@@ -41,18 +48,10 @@ public class MeetupController {
     }
 
     @PutMapping(path = "/meetups/{id}", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<Meetup> updateMeetup(@PathVariable ("id") Long id, @Valid @RequestBody Meetup meetup){
-        Meetup foundMeetup = meetUpService.findMeetuById(id);
-        if (foundMeetup == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        foundMeetup.setMeetupName(meetup.getMeetupName());
-        foundMeetup.setMeetupAddress(meetup.getMeetupAddress());
-        foundMeetup.setMeetupDate(meetup.getMeetupDate());
-        foundMeetup.setMeetupDescription(meetup.getMeetupDescription());
-        foundMeetup.setMeetupSpeaker(meetup.getMeetupSpeaker());
-        Meetup updatedMeetup = meetUpService.saveMeetup(foundMeetup);
+    public ResponseEntity<Meetup> updateMeetup(@PathVariable ("id") Long id,
+                                               @Valid @RequestBody Meetup meetup){
+        meetUpService.updateMeetup(id, meetup);
 
-        return new ResponseEntity<>(updatedMeetup, HttpStatus.OK);
+        return new ResponseEntity<>(meetup, HttpStatus.OK);
     }
 }

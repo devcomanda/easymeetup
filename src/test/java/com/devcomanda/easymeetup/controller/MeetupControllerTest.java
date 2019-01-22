@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,10 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -76,6 +77,18 @@ public class MeetupControllerTest {
     }
 
     @Test
+    public void findMeetupByIdTest() throws Exception{
+       Mockito.when(meetupService.findMeetupById(1L)).thenReturn(Optional.ofNullable(expectedMeetup));
+        mockMvc.perform(get("/api/meetups/{1}", 1)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.meetupName").value("Java for sceptics"));
+
+    }
+
+    @Test
     public void returnNoContentStatus_whenFindAllMeetups() throws Exception{
         mockMvc.perform(get("/api/meetups")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -85,15 +98,17 @@ public class MeetupControllerTest {
 
     @Test
     public void updateMeetupTest() throws Exception{
-        given(meetupService.findMeetuById(expectedMeetup.getId())).willReturn(expectedMeetup);
-        when(meetupService.saveMeetup(expectedMeetup)).thenReturn(expectedMeetup);
+        given(meetupService.findMeetupById(expectedMeetup.getId()))
+                .willReturn(Optional.ofNullable(expectedMeetup));
+
+        Mockito.when(meetupService.saveMeetup(expectedMeetup)).thenReturn(expectedMeetup);
         mockMvc.perform(put("/api/meetups/{1}", 1)
                 .content(asJsonString(expectedMeetup))
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.meetupName").value("Java for sceptics"));
+                .andExpect(jsonPath("$.id").value(1));
     }
 
     public static String asJsonString(final Object object){

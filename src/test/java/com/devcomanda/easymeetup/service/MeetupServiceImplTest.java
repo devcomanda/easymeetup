@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,11 +68,23 @@ public class MeetupServiceImplTest {
 
     @Test
     public void findMeetupById(){
-        Mockito.when(meetupRepository.getOne(1l)).thenReturn(expectedMeetup);
+        Mockito.when(meetupRepository.findById(1l)).thenReturn(Optional.ofNullable(expectedMeetup));
 
-        Meetup actualMeetup = meetupService.findMeetuById(1L);
+        Optional<Meetup> actualMeetup = meetupService.findMeetupById(1L);
 
-        assertThat(actualMeetup).isEqualTo(expectedMeetup)
-                                .isEqualToComparingFieldByField(expectedMeetup);
+        assertThat(actualMeetup.get()).isEqualTo(expectedMeetup);
+    }
+
+    @Test
+    public void updateMeetupTest(){
+        Mockito.when(meetupRepository.save(expectedMeetup)).thenReturn(expectedMeetup);
+
+        expectedMeetup.setMeetupName("Java for");
+
+        Meetup updatedMeetup = meetupRepository.save(expectedMeetup);
+
+        assertThat(updatedMeetup.getMeetupName()).isEqualTo(expectedMeetup.getMeetupName());
+        assertThat(updatedMeetup.getId()).isEqualTo(1L);
+
     }
 }
