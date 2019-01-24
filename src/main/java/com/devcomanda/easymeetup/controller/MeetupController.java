@@ -44,4 +44,10 @@ public class MeetupController {
     public ResponseEntity<Meetup> updateMeetup(@PathVariable("id") Long id, @Valid @RequestBody Meetup meetup) {
         return new ResponseEntity<>(this.meetUpService.updateMeetup(meetup), HttpStatus.OK);
     }
+
+    @GetMapping(path = "meetups/{id}")
+    public ResponseEntity<Meetup> loadMeetupById(@PathVariable ("id") long id){
+        Meetup meetup = meetUpService.loadMeetup(id);
+        return new ResponseEntity<>(meetup, HttpStatus.FOUND);
+    }
 }

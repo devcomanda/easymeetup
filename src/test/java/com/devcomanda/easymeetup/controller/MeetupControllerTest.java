@@ -100,4 +100,17 @@ public class MeetupControllerTest {
                 .andExpect(jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.name").value("Java for sceptics"));
     }
+
+    @Test
+    public void loadMeetupByIdTest() throws Exception{
+        given(meetupService.loadMeetup(1L)).willReturn(MeetupsFactory.firstMeetup());
+
+        mockMvc.perform(get("/api/meetups/{1}", 1)
+                .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.firstMeetup()))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        )
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$.name").value("Java for sceptics"));
+    }
 }
