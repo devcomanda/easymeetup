@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EasymeetupApplication {
+public class EasyMeetupApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EasymeetupApplication.class, args);
+		SpringApplication.run(EasyMeetupApplication.class, args);
 	}
 
 }

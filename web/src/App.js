@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Base from './base/Base';
+import AdminCms from './admin-cms/AdminCms';
 import './App.css';
-import Event from  './components/event/Event.js';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/event/">Event</Link>
-              </li>
-            </ul>
-          </nav>
-
+      <Switch>
           <Route path="/event/" component={Event} />
-        </div>
-      </Router>
+          <Route path="/cms" component={AdminCms}/>
+          <Route path="/" component={Base}/>
+      </Switch>
     );
   }
 }
