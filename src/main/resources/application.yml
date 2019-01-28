@@ -1,3 +1,14 @@
+security:
+      oauth2:
+        client:
+          registration:
+            github:
+              clientId: <some id>
+              clientSecret:  <some secret>
+              redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+              scope:
+                - user:email
+                - read:user
 jwt:
   secretKey: "some-key"
   tokenValidityInMilliseconds: 86400000
