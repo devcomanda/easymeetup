@@ -1,4 +1,4 @@
-package com.devcomanda.easymeetup.entity.exceptions;
+package com.devcomanda.easymeetup.model.entity.exceptions;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)

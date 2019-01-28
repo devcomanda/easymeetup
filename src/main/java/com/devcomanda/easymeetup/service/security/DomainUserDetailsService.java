@@ -1,7 +1,7 @@
 package com.devcomanda.easymeetup.service.security;
 
-import com.devcomanda.easymeetup.entity.Authority;
-import com.devcomanda.easymeetup.entity.User;
+import com.devcomanda.easymeetup.model.entity.Authority;
+import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

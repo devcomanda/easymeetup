@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.controller;
 
-import com.devcomanda.easymeetup.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.service.MeetupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
