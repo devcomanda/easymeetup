@@ -1,11 +1,12 @@
-security:
+spring:
+  security:
       oauth2:
         client:
           registration:
             github:
-              clientId: <some id>
-              clientSecret:  <some secret>
-              redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+              client-id: <some id>
+              client-secret: <some client secret>
+              redirect-uri-template: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - user:email
                 - read:user
