@@ -1,10 +1,14 @@
 package com.devcomanda.easymeetup.model.entity;
 
 import com.devcomanda.easymeetup.model.entity.enums.AuthProvider;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
@@ -31,6 +32,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @ToString
+// TODO We should use custom settings for sequence configuration
+// because we use sql files for setting dev data
 public class User extends AbstractPersistable<Long> {
 
     @Column(name = "email", nullable = false, unique = true)

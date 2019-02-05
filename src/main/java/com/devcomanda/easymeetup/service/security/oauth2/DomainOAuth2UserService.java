@@ -51,7 +51,9 @@ public class DomainOAuth2UserService extends DefaultOAuth2UserService {
         final OAuth2UserInfo oAuth2UserInfo = new GithubOAuth2UserInfo(
             oAuth2User.getAttributes()
         );
-
+        // TODO in some cases github doesn't return email
+        // for example if user doesn't set public email,
+        // we should send additional getting email request  if it doesn't get through first api call
         if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
@@ -72,6 +74,7 @@ public class DomainOAuth2UserService extends DefaultOAuth2UserService {
         final User user = User.builder()
             .email(oAuth2UserInfo.getEmail())
             .providerId(oAuth2UserInfo.getId())
+            // TODO we have to use case insensitive method for looking for provider constant
             .authProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))
             .build();
 

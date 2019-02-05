@@ -5,5 +5,7 @@ package com.devcomanda.easymeetup.model.entity.enums;
  */
 public enum AuthProvider {
     LOCAL,
-    GITHUB
+    GITHUB,
+    //TODO need remove this constant after we add method that finds enum constant independent for letter case
+    github
 }
