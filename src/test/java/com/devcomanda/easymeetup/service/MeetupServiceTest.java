@@ -1,7 +1,7 @@
 package com.devcomanda.easymeetup.service;
 
-import com.devcomanda.easymeetup.entity.Meetup;
-import com.devcomanda.easymeetup.entity.exceptions.MeetupNotFoundException;
+import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.junit.Before;

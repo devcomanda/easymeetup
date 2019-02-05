@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.factories;
 
-import com.devcomanda.easymeetup.entity.Authority;
+import com.devcomanda.easymeetup.model.entity.Authority;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)

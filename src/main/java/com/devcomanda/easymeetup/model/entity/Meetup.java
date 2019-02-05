@@ -1,4 +1,4 @@
-package com.devcomanda.easymeetup.entity;
+package com.devcomanda.easymeetup.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
+// TODO We should use custom settings for sequence configuration
+// because we use sql files for setting dev data
 public class Meetup extends AbstractPersistable<Long> {
 
     private String name;

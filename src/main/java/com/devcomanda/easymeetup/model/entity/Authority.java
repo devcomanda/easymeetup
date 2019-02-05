@@ -1,4 +1,4 @@
-package com.devcomanda.easymeetup.entity;
+package com.devcomanda.easymeetup.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
