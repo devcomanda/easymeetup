@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.repository;
 
-import com.devcomanda.easymeetup.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;

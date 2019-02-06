@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.repository;
 
-import com.devcomanda.easymeetup.entity.User;
+import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.factories.AuthoritiesFactory;
 import com.devcomanda.easymeetup.factories.UsersFactory;
 import org.junit.Test;

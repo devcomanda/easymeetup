@@ -6,9 +6,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import './event.scss';
+import  bcg from '../../assets/images/bcg.jpg';
 
 interface ICardProps {
-    key?: any;
     id?: number;
     title: string;
     address?: string;
@@ -22,7 +23,7 @@ interface ICardState {
     title: string;
 }
 
-function EventCard(props: ICardProps, state: ICardState) {
+const EventCard = function (props: ICardProps, state: ICardState) {
     const {
         id,
         title,
@@ -30,41 +31,42 @@ function EventCard(props: ICardProps, state: ICardState) {
         date,
         description,
         speaker,
-    } = this.props;
+    } = props;
 
     const {
         image,
-        alt,
-    } = this.state;
+    } = state;
 
     return (
-        <Card>
+        <Card className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    image="../assets/images/bcg.jpg"
-                    title={this.props.title}
+                    image={bcg}
+                    title={props.title}
                 />
                 <CardContent>
-                    <Typography>
-                        {this.props.title}
+                    <div className="card-event-date">
+                        {props.date}
+                    </div>
+                    <Typography className="card-event-title">
+                        {props.title}
                     </Typography>
                     <Typography component="p">
-                        {this.props.description}
+                        {props.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Share
+                <Button className="btn-registration" variant="contained" size="small" color="primary">
+                    Registration
                 </Button>
-                <Button size="small" color="primary">
-                    Learn More
+                <Button variant="contained" size="small" color="primary">
+                    Edit event
                 </Button>
             </CardActions>
         </Card>
     );
-}
+};
 
 export default EventCard;
-
