@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { useState, useEffect } from 'react';
 import axios from 'axios';
-import EventCard from './/EventCard';
+import EventCard from './EventCard';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -12,7 +12,7 @@ class EventsList extends Component {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:3000/event`)
+        axios.get(`http://localhost:3000/events`)
             .then(res => {
                 const event = res.data;
                 this.setState({ event });
@@ -28,7 +28,7 @@ class EventsList extends Component {
                 justify="center"
                 alignItems="center"
             >
-                { this.state.event.map(event =>
+                { this.state.event.map(( event: any) =>
                     <EventCard
                         key={event.id}
                         description={event.description}

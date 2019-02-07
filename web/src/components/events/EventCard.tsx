@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -22,7 +20,6 @@ interface ICardProps {
 
 interface ICardState {
     image: string;
-    alt: string;
     title: string;
 }
 
@@ -38,7 +35,6 @@ const EventCard = function (props: ICardProps, state: ICardState) {
 
     const {
         image,
-        alt,
     } = state;
 
     return (
@@ -46,7 +42,6 @@ const EventCard = function (props: ICardProps, state: ICardState) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    alt={props.title}
                     image={bcg}
                     title={props.title}
                 />
