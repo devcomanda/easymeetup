@@ -1,5 +1,6 @@
 package com.devcomanda.easymeetup.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +26,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
 @ToString
 public class User extends AbstractPersistable<Long> {
 
@@ -35,7 +36,13 @@ public class User extends AbstractPersistable<Long> {
 
     private String password;
 
-    @Setter(AccessLevel.NONE)
+    private boolean activated;
+
+    @Column(name = "activation_key", length = 20)
+    @JsonIgnore
+    private String activationKey;
+
+    @Setter(AccessLevel.PUBLIC)
     @Getter(AccessLevel.NONE)
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_authority",
@@ -44,7 +51,13 @@ public class User extends AbstractPersistable<Long> {
     )
     private Set<Authority> authorities = new HashSet<>();
 
-    public User(final String email, final String password) {
+    public User(String email, String password, boolean activated) {
+        this.email = email;
+        this.password = password;
+        this.activated = activated;
+    }
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -82,5 +95,4 @@ public class User extends AbstractPersistable<Long> {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
-
 }
