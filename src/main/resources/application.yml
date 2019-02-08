@@ -1,7 +1,4 @@
-jwt:
-  secretKey: "some-key"
-  tokenValidityInMilliseconds: 86400000
-
+spring:
   mail:
     host: mail.localhost
     port: 25
@@ -14,6 +11,10 @@ jwt:
           starttls:
             enable: true
 
-            emails:
-              from-user: info@devcomanda.com
-              activation-base-url: http://127.0.0.1:8080
+jwt:
+  secretKey: "some-key"
+  tokenValidityInMilliseconds: 86400000
+
+emails:
+  from-user: info@devcomanda.com
+  activation-base-url: http://127.0.0.1:8080
