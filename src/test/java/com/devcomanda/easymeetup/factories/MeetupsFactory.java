@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.factories;
 
-import com.devcomanda.easymeetup.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.Meetup;
 
 import java.time.LocalDateTime;
 

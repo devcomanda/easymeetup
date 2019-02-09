@@ -1,4 +1,4 @@
-package com.devcomanda.easymeetup.entity.exceptions;
+package com.devcomanda.easymeetup.model;
 
 public class InvalidPasswordException extends RuntimeException {
 

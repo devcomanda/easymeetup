@@ -1,7 +1,8 @@
-package com.devcomanda.easymeetup.entity;
+package com.devcomanda.easymeetup.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.devcomanda.easymeetup.model.entity.enums.AuthProvider;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -29,6 +32,8 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @ToString
+// TODO We should use custom settings for sequence configuration
+// because we use sql files for setting dev data
 public class User extends AbstractPersistable<Long> {
 
     @Column(name = "email", nullable = false, unique = true)
@@ -36,13 +41,16 @@ public class User extends AbstractPersistable<Long> {
 
     private String password;
 
-    private boolean activated;
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
 
-    @Column(name = "activation_key", length = 20)
-    @JsonIgnore
+    private String providerId;
+
+    private Boolean activated;
+
     private String activationKey;
 
-    @Setter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_authority",
@@ -51,23 +59,31 @@ public class User extends AbstractPersistable<Long> {
     )
     private Set<Authority> authorities = new HashSet<>();
 
-    public User(String email, String password, boolean activated) {
+    public User(final String email, final String password) {
         this.email = email;
         this.password = password;
-        this.activated = activated;
     }
 
-    public User(String email, String password) {
+    @Builder
+    private User(
+            final String email,
+            final String password,
+            final AuthProvider authProvider,
+            final String providerId
+    ) {
+
         this.email = email;
         this.password = password;
+        this.provider = authProvider;
+        this.providerId = providerId;
     }
 
     // sync methods
-    public void addAuthorities(Authority authority) {
+    public void addAuthorities(final Authority authority) {
         this.authorities.add(authority);
     }
 
-    public void removeAuthorities(Authority authority) {
+    public void removeAuthorities(final Authority authority) {
         this.authorities.remove(authority);
     }
 
@@ -82,17 +98,18 @@ public class User extends AbstractPersistable<Long> {
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null || this.getClass() != obj.getClass()) return false;
 
         User user = (User) obj;
 
-        return Objects.equals(email, user.email);
+        return Objects.equals(this.email, user.email);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (this.email != null ? this.email.hashCode() : 0);
         return result;
     }
+
 }

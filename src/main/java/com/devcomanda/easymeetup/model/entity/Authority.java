@@ -1,4 +1,4 @@
-package com.devcomanda.easymeetup.entity;
+package com.devcomanda.easymeetup.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(name = "authority")
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
-@Setter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PUBLIC)
 @ToString
 public class Authority {
 

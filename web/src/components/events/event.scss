@@ -1,0 +1,21 @@
+.card {
+  width: 300px;
+  margin: 20px;
+  font-size: 16px;
+
+  .card-event-title {
+    color: #212121;
+    font-size: 16px;
+  }
+
+  .card-event-date {
+    color: #9E9E9E;
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .btn-registration {
+    background: #388E3C !important;
+  }
+}
+

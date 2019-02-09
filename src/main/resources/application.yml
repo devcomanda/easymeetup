@@ -1,20 +1,26 @@
-
-jwt:
-  secretKey: "some-key"
-  tokenValidityInMilliseconds: 86400000
-
-mail:
-  host: mail.localhost
-  port: 25
-  username: system@localhost
-  password: "some password"
-  properties:
-    mail:
-      smtp:
-        auth: true
+spring:
+  mail:
+    host: mail.local.host
+    port: 25
+    username: system@local.host
+    password: psw
+    properties:
+      mail:
+        smtp:
+          auth:true
         starttls:
-          enable: true
+          enable:true
 
-emails:
-  from-user: info@devcomanda.com
-  activation-base-url: http://127.0.0.1:8080
+  security:
+      oauth2:
+        client:
+          registration:
+            github:
+              client-id: <some id>
+              client-secret: <some client secret>
+              redirect-uri-template: "{baseUrl}/oauth2/callback/{registrationId}"
+              scope:
+                - user:email
+                - read:user
+            jwt:
+              secretKey: "some-key"

@@ -1,7 +1,7 @@
 package com.devcomanda.easymeetup.controller;
 
-import com.devcomanda.easymeetup.entity.Meetup;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
+import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.service.MeetupService;
 import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.devcomanda.easymeetup.utils.TestUtils;

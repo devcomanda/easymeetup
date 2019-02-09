@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.service;
 
-import com.devcomanda.easymeetup.entity.User;
+import com.devcomanda.easymeetup.model.entity.User;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,9 +2,9 @@ package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.configs.constants.AuthorityConstants;
 import com.devcomanda.easymeetup.controller.model.security.NewUserRequest;
-import com.devcomanda.easymeetup.entity.User;
-import com.devcomanda.easymeetup.entity.exceptions.InvalidPasswordException;
-import com.devcomanda.easymeetup.entity.exceptions.UserExistsException;
+import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.InvalidPasswordException;
+import com.devcomanda.easymeetup.model.UserExistsException;
 import com.devcomanda.easymeetup.repository.UserRepository;
 import com.devcomanda.easymeetup.repository.security.AuthorityRepository;
 import com.devcomanda.easymeetup.utils.RandomUtil;
