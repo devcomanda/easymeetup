@@ -45,7 +45,6 @@ public class MeetupControllerTest {
     @MockBean
     private MeetupService meetupService;
 
-
     @Test
     public void saveMeetupTest() throws Exception {
         mockMvc.perform(

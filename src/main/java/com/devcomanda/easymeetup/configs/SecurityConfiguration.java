@@ -34,8 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     @Autowired
-    public SecurityConfiguration(
-        final UserDetailsService userDetailsService,
+    public SecurityConfiguration(final UserDetailsService userDetailsService,
         final TokenProvider tokenProvider,
         final AuthorizationRequestRepository<OAuth2AuthorizationRequest> cookieAuthorizationRequestRepository,
         final OAuth2UserService<OAuth2UserRequest, OAuth2User> domainOAuth2UserService,
