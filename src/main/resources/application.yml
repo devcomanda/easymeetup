@@ -1,19 +1,20 @@
+
 jwt:
   secretKey: "some-key"
   tokenValidityInMilliseconds: 86400000
 
-  mail:
-    host: mail.localhost
-    port: 25
-    username: system@localhost
-    password: "some password"
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+mail:
+  host: mail.localhost
+  port: 25
+  username: system@localhost
+  password: "some password"
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
 
-            emails:
-              from-user: info@devcomanda.com
-              activation-base-url: http://127.0.0.1:8080
+emails:
+  from-user: info@devcomanda.com
+  activation-base-url: http://127.0.0.1:8080
