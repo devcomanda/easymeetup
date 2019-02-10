@@ -60,5 +60,4 @@ public class UserRepositoryIntTest {
 
         actual.hasAuthority(AuthoritiesFactory.USER_AUTHORITY_NAME);
     }
-
 }

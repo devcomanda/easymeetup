@@ -39,11 +39,11 @@ public class UserJwtResource {
 
     private final AuthenticationManager authenticationManager;
 
-
-    private UserSecurityService userSecurityService;
+    @Autowired
+    private  UserSecurityService userSecurityService;
 
     @Autowired
-    private UserService userService;
+    private  UserService userService;
 
     @Autowired
     public UserJwtResource(

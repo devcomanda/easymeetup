@@ -1,6 +1,7 @@
 package com.devcomanda.easymeetup.model.entity;
 
 import com.devcomanda.easymeetup.model.entity.enums.AuthProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,6 +47,7 @@ public class User extends AbstractPersistable<Long> {
 
     private String providerId;
 
+    @JsonIgnore
     private Boolean activated;
 
     private String activationKey;
@@ -54,8 +56,8 @@ public class User extends AbstractPersistable<Long> {
     @Getter(AccessLevel.NONE)
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_authority",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority", referencedColumnName = "name")
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "authority", referencedColumnName = "name")
     )
     private Set<Authority> authorities = new HashSet<>();
 
@@ -66,16 +68,27 @@ public class User extends AbstractPersistable<Long> {
 
     @Builder
     private User(
-            final String email,
-            final String password,
-            final AuthProvider authProvider,
-            final String providerId
+        final String email,
+        final String password,
+        final AuthProvider authProvider,
+        final String providerId
     ) {
 
         this.email = email;
         this.password = password;
         this.provider = authProvider;
         this.providerId = providerId;
+    }
+
+    public User(String email, String password, AuthProvider provider, String providerId,
+                Boolean activated,
+                String activationKey) {
+        this.email = email;
+        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.activated = activated;
+        this.activationKey = activationKey;
     }
 
     // sync methods

@@ -1,23 +1,31 @@
 spring:
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1
-    name:
-    username:
-    password:
-    initialization-mode: never
+  mail:
+    host: mail.local.host
+    port: 25
+    username: system@local.host
+    password: psw
+    properties:
+      mail:
+        smtp:
+          auth:true
+        starttls:
+          enable:true
 
   security:
-      oauth2:
-        client:
-          registration:
-            github:
-              client-id: <some id>
-              client-secret: <some client secret>
-              redirect-uri-template: "{baseUrl}/oauth2/callback/{registrationId}"
-              scope:
-                - user:email
-                - read:user
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: <some id>
+            client-secret: <some client secret>
+            redirect-uri-template: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user
 jwt:
   secretKey: "some-key"
   tokenValidityInMilliseconds: 86400000
+
+emails:
+  from-user: devcomanda@gmail.com
+  activation-base-url: http://localhost:8080/
