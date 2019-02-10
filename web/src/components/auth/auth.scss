@@ -1,0 +1,22 @@
+.wrapper {
+    height: 100vh;
+}
+
+.sign-in {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.form-login {
+    border:  1px solid #dfdfdf;
+    border-radius: 4px;
+    padding: 40px;
+    width: 400px;
+
+    .form-login-btn-registration {
+        margin: 16px 0 0 0;
+        padding: 12px 0;
+    }
+}
+
+

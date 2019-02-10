@@ -8,19 +8,21 @@ class Login extends Component {
     render() {
         return (
             <Grid
-                xs={6}
-                align-items-xs-center
+                className="wrapper"
                 container
-                direction="row"
-                justify="space-around"
-                // alignItems="center"
+                direction="column"
+                justify="center"
+                alignItems="center"
             >
+                <div className="sign-in">Sign in</div>
                 <form className="form-login">
                     <Grid
                         container
+                        spacing={16}
                         direction="column"
                         justify="center"
                         alignItems="center"
+
                 >
                         <TextField
                             id="outlined-email-input"
@@ -30,6 +32,7 @@ class Login extends Component {
                             autoComplete="email"
                             margin="normal"
                             variant="outlined"
+                            fullWidth
                         />
                         <TextField
                             id="outlined-password-input"
@@ -38,9 +41,20 @@ class Login extends Component {
                             autoComplete="current-password"
                             margin="normal"
                             variant="outlined"
-                        />  
-                        <Button color="success">REGISTRATION</Button>
-                    </Grid>                  
+                            fullWidth
+                        />
+                        <p className="text-left">Еще не зарегистрированы у нас?
+                            <a href="./registration"> Зарегистрироваться</a>
+                        </p>
+                        <Button
+                            className="form-login-btn-registration"
+                            color="success"
+                            size="lg"
+                            block
+                        >
+                            Sign in
+                        </Button>
+                    </Grid>
                 </form>
             </Grid>
         );
