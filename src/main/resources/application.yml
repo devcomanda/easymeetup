@@ -30,3 +30,13 @@ emails:
   from-user: devcomanda@gmail.com
   activation-base-url: http://localhost:8080/
 
+<<<<<<< HEAD
+=======
+jwt:
+  secretKey: "some-key"
+  tokenValidityInMilliseconds: 86400000
+
+emails:
+  from-user: info@devcomanda.com
+  activation-base-url: http://127.0.0.1:8080
+>>>>>>> 5a638c4f82d50f92b6c41bbcdc1b1f11088ccc1c
