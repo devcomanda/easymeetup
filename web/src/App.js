@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Base from './base/Base';
 import AdminCms from './admin-cms/AdminCms';
-import './App.css';
 
 class App extends Component {
   render() {
