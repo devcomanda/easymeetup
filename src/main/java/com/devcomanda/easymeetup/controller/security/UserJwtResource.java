@@ -21,7 +21,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -74,10 +73,10 @@ public class UserJwtResource {
         return new ResponseEntity<>(new JwtTokenResponse(jwt), httpHeaders, HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerNewUser(@Valid @RequestBody final NewUserRequest userRequest
+    @PostMapping(value = "/signup", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<NewUserRequest> registerNewUser(@Valid @RequestBody final NewUserRequest userRequest
                                                 , final BindingResult bindingResult){
+
         if (bindingResult.hasErrors()){
             final String errors = bindingResult.getAllErrors()
                     .stream()
@@ -86,6 +85,8 @@ public class UserJwtResource {
 
             throw new ValidationException();
         }
-        this.userSecurityService.register(userRequest);
+        userSecurityService.register(userRequest);
+
+        return  new ResponseEntity<>(userRequest, HttpStatus.CREATED);
     }
 }

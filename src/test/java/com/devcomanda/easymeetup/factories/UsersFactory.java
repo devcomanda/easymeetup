@@ -1,5 +1,6 @@
 package com.devcomanda.easymeetup.factories;
 
+import com.devcomanda.easymeetup.controller.model.security.NewUserRequest;
 import com.devcomanda.easymeetup.model.entity.User;
 
 /**
@@ -17,5 +18,14 @@ public final class UsersFactory {
         User user = new User(FIRST_USER_EMAIL, FIRST_USER_PLAIN_PASSWORD);
         user.addAuthorities(AuthoritiesFactory.userAuthority());
         return user;
+    }
+
+    public static NewUserRequest createUserRequest(){
+
+        final NewUserRequest userRequest = new NewUserRequest();
+        userRequest.setEmail(UsersFactory.FIRST_USER_EMAIL);
+        userRequest.setPassword(UsersFactory.FIRST_USER_PLAIN_PASSWORD);
+
+        return userRequest;
     }
 }

@@ -1,10 +1,9 @@
 package com.devcomanda.easymeetup.controller.security;
 
 import com.devcomanda.easymeetup.controller.model.security.LoginRequest;
+import com.devcomanda.easymeetup.controller.model.security.NewUserRequest;
+import com.devcomanda.easymeetup.factories.UsersFactory;
 import com.devcomanda.easymeetup.utils.TestUtils;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -83,6 +87,21 @@ public class UserJwtResourceIntTest {
                 .andExpect(status().is4xxClientError())
                 .andExpect(jsonPath("$.token").doesNotExist())
                 .andExpect(header().doesNotExist("Authorization"));
+    }
+
+    @Test
+    @Ignore
+    public void shouldReturnRegisteredUser_whenRegisterNewUser() throws Exception {
+        final NewUserRequest userRequest = UsersFactory.createUserRequest();
+
+        this.mvc.perform(
+                post("api/auth/singup")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    .content(TestUtils.convertObjectToJsonBytes(userRequest))
+                    .accept(MediaType.APPLICATION_JSON_UTF8)
+                )
+                .andDo(print());
+
     }
 
 }

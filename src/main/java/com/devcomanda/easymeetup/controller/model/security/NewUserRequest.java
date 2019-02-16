@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @ToString
 public class NewUserRequest {
-    public static final int PASSWORD_WITH_MIN_LENGTH = 4;
+    public static final int PASSWORD_WITH_MIN_LENGTH = 3;
     public static final int PASSWORD_WITH_MAX_LENGTH = 50;
 
     @NotBlank
