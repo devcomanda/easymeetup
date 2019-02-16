@@ -1,0 +1,15 @@
+spring:
+  security:
+      oauth2:
+        client:
+          registration:
+            github:
+              client-id: <some id>
+              client-secret: <some client secret>
+              redirect-uri-template: "{baseUrl}/oauth2/callback/{registrationId}"
+              scope:
+                - user:email
+                - read:user
+jwt:
+  secretKey: "some-key"
+  tokenValidityInMilliseconds: 86400000

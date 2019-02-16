@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom';
+
 
 const Home = () => (
     <h1>Дом, милый дом!</h1>
