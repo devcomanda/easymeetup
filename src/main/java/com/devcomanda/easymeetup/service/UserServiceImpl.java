@@ -1,6 +1,7 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.entity.exceptions.UserNotFoundException;
 import com.devcomanda.easymeetup.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        return userRepository.getOne(id);
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 }
