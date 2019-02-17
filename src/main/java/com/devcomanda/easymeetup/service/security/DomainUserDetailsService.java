@@ -5,6 +5,7 @@ import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@Qualifier("domainUserDetails")
 public class DomainUserDetailsService implements UserDetailsService {
 
     final private UserRepository userRepository;
