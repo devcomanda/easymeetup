@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = UserController.class, secure = false)
-@WithMockUser
 public class UserControllerTest {
 
     @Autowired
