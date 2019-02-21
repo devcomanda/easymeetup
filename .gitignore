@@ -32,7 +32,6 @@ node_modules/
 
 # testing
 /coverage
-/src/test/java/com/devcomanda/easymeetup/controller/UserControllerIntTest.java
 
 # production
 /build
