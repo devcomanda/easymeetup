@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 
 public class UserServiceTest {
@@ -41,13 +42,13 @@ public class UserServiceTest {
     }
 
     @Test
-    public void ReturnUserAfter_saveUserTest(){
+    public void ReturnUserAfter_saveUserTest() {
         final NewUserRequest newUserRequest = UsersFactory.createUserRequest();
         final String encodedPassword = "user";
 
-        Mockito.when(passwordEncoder.encode(any())).thenReturn(encodedPassword);
+        when(passwordEncoder.encode(any())).thenReturn(encodedPassword);
 
-        Mockito.when(authorityRepository.findById("ROLE_USER"))
+        when(authorityRepository.findById("ROLE_USER"))
                 .thenReturn(Optional.of(AuthoritiesFactory.userAuthority()));
 
         Mockito.doAnswer(AdditionalAnswers.returnsFirstArg()).when(this.userRepository)
@@ -58,6 +59,8 @@ public class UserServiceTest {
 
         assertThat(user.getEmail()).isEqualTo(UsersFactory.FIRST_USER_EMAIL);
         assertThat(user.getPassword()).isEqualTo(UsersFactory.FIRST_USER_PLAIN_PASSWORD);
+
+    }
 
     @Test
     public void shouldReturnUserById() {
