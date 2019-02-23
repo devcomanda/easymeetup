@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,17 +77,25 @@ public class UserJwtResource {
     @PostMapping(value = "/signup", produces = "application/json;charset=UTF-8")
     public ResponseEntity<NewUserRequest> registerNewUser(@Valid @RequestBody final NewUserRequest userRequest
                                                 , final BindingResult bindingResult){
-
         if (bindingResult.hasErrors()){
             final String errors = bindingResult.getAllErrors()
                     .stream()
                     .map(ObjectError::toString)
                     .collect(Collectors.joining(","));
-
             throw new ValidationException();
         }
         userSecurityService.register(userRequest);
 
         return  new ResponseEntity<>(userRequest, HttpStatus.CREATED);
+    }
+
+    @RequestMapping("/activate/{activationKey}")
+    public String displayUserActivationResult(@PathVariable ("activationKey") String activationKey){
+        try {
+            userSecurityService.activate(activationKey);
+            return "successActivation";
+        }catch (Exception e){
+            return "errorActivation";
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.controller.model.security.NewUserRequest;
 import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.security.InvalidUserActivationKeyException;
 import com.devcomanda.easymeetup.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,15 @@ public class UserSecurityServiceImpl implements UserSecurityService {
         final User user = this.userService.saveUser(userRequest, false);
         this.mailService.sendActivationEmail(user);
         return user;
+    }
+
+    @Override
+    public User activate(String activationKey) {
+        return userRepository.findOneByActivationKey(activationKey).map(user ->
+        {
+            user.setActivated(true);
+            user.setActivationKey(null);
+            return user;
+        }).orElseThrow(InvalidUserActivationKeyException::new);
     }
 }

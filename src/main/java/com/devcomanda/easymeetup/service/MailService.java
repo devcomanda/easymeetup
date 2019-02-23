@@ -1,5 +1,6 @@
 package com.devcomanda.easymeetup.service;
 
+import com.devcomanda.easymeetup.configs.constants.LocalConstants;
 import com.devcomanda.easymeetup.model.entity.User;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class MailService {
         final Map<String, Object> context = new HashMap<>(2);
         context.put("user", user);
         context.put("baseUrl", this.activationBaseUrl);
-        this.sendEmailFromTemplate(user.getEmail(), "Activate your account"
+        this.sendEmailFromTemplate(user.getEmail(), LocalConstants.ACTIVATE_ACCOUNT_SUBJECT
                 , "mails/activationEmail", context);
     }
 }

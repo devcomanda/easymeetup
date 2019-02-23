@@ -6,4 +6,5 @@ import com.devcomanda.easymeetup.model.entity.User;
 public interface UserSecurityService {
 
     User register(NewUserRequest userRequest);
+    User activate(String activationKey);
 }
