@@ -63,5 +63,13 @@ public class UserServiceImpl implements UserService {
             user.setActivationKey(RandomUtil.generateActivationKey());
         }
         return this.userRepository.save(user);
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 }

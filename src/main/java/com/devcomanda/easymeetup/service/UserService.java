@@ -6,4 +6,5 @@ import com.devcomanda.easymeetup.model.entity.User;
 public interface UserService {
     User saveUser(NewUserRequest userReq, boolean isActive);
 
+    User findUserById(Long id);
 }

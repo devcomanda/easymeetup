@@ -11,6 +11,13 @@ spring:
         starttls:
           enable:true
 
+
+  # this resources and mvc settings needed for exception handling
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+    
   security:
       oauth2:
         client:
@@ -29,4 +36,5 @@ jwt:
 emails:
   from-user: devcomanda@gmail.com
   activation-base-url: http://127.0.0.1:8080
+  tokenValidityInMilliseconds: 86400000
 
