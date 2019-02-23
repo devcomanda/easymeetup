@@ -1,14 +1,15 @@
 package com.devcomanda.easymeetup.model.security;
 
 import com.devcomanda.easymeetup.model.entity.User;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)

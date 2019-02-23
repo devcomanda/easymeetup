@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: mail.local.host
+    port: 25
+    username: system@local.host
+    password: psw
+    properties:
+      mail:
+        smtp:
+          auth:true
+        starttls:
+          enable:true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:h2:mem:demo;DB_CLOSE_DELAY=-1
@@ -21,3 +32,7 @@ spring:
 jwt:
   secretKey: "some-key"
   tokenValidityInMilliseconds: 86400000
+
+emails:
+  from-user: devcomanda@gmail.com
+  activation-base-url: http://localhost:8080/

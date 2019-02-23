@@ -1,5 +1,5 @@
 
-insert into users (id,email,password) values (1, 'email@t.com', '$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K');
+insert into users (id,email,password, activated) values (1, 'email@t.com', '$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K', true );
 
 insert into authority (name ) values ('ROLE_USER');
 
