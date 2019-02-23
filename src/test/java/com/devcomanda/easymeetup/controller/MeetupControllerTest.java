@@ -76,6 +76,21 @@ public class MeetupControllerTest {
     }
 
     @Test
+    public void findAllMeetupsWithNewStatus() throws Exception {
+        given(meetupService.loadMeetups()).willReturn(Arrays.asList(
+                MeetupsFactory.firstMeetup(),
+                MeetupsFactory.secondMeetup()
+        ));
+
+        mockMvc.perform(get("/api/meetups?status=NEW")
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].name", is("Java for sceptics")));
+    }
+
+    @Test
     public void updateMeetupTest() throws Exception {
 
         Meetup meetup = MeetupsFactory.firstMeetup();

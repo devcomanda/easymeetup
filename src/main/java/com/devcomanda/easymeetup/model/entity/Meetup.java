@@ -1,5 +1,6 @@
 package com.devcomanda.easymeetup.model.entity;
 
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,12 +13,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Entity
 @Table(name = "meetup")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
 // TODO We should use custom settings for sequence configuration
 // because we use sql files for setting dev data
@@ -34,6 +36,8 @@ public class Meetup extends AbstractPersistable<Long> {
     private String description;
     private String speaker;
 
+    private Status status;
+
     @Builder
     private Meetup(
             final Long id,
@@ -42,7 +46,8 @@ public class Meetup extends AbstractPersistable<Long> {
             final LocalDateTime startDate,
             final LocalDateTime endDate,
             final String description,
-            final String speaker
+            final String speaker,
+            final Status status
     ) {
         super();
         super.setId(id);
@@ -53,5 +58,6 @@ public class Meetup extends AbstractPersistable<Long> {
         this.endDate = endDate;
         this.description = description;
         this.speaker = speaker;
+        this.status = status;
     }
 }
