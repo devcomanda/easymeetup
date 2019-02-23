@@ -1,4 +1,9 @@
 spring:
+  # this resources and mvc settings needed for exception handling
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
   security:
       oauth2:
         client:
