@@ -1,21 +1,28 @@
 package com.devcomanda.easymeetup.service;
 
+import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
-import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.test.context.support.WithMockUser;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MeetupServiceTest {
 
@@ -116,6 +123,19 @@ public class MeetupServiceTest {
                 .thenReturn(Optional.empty());
 
         meetupService.updateMeetup(MeetupsFactory.secondMeetup());
+    }
+
+    @Test
+    @WithMockUser(username = "mail@mail.com")
+    public void shoulReturnUserHistoryMeetups(){
+        List<Meetup> allMeetups = new ArrayList<>();
+        allMeetups.add(MeetupsFactory.firstMeetup());
+        allMeetups.add(MeetupsFactory.secondMeetup());
+
+        when(meetupRepository.findUserMeetupsBeforeCurrentDate("mail@mail.com",
+                LocalDate.now()))
+                .thenReturn(allMeetups);
+
     }
 
 }

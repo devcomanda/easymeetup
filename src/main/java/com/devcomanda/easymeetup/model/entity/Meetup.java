@@ -10,8 +10,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "meetup")
@@ -34,6 +37,10 @@ public class Meetup extends AbstractPersistable<Long> {
     private String description;
     private String speaker;
 
+
+    @ManyToMany(mappedBy = "meetups")
+    private Set<User> users = new HashSet<>();
+
     @Builder
     private Meetup(
             final Long id,
@@ -42,7 +49,9 @@ public class Meetup extends AbstractPersistable<Long> {
             final LocalDateTime startDate,
             final LocalDateTime endDate,
             final String description,
-            final String speaker
+            final String speaker,
+            final Set<User> users
+
     ) {
         super();
         super.setId(id);
@@ -53,5 +62,6 @@ public class Meetup extends AbstractPersistable<Long> {
         this.endDate = endDate;
         this.description = description;
         this.speaker = speaker;
+        this.users = users;
     }
 }

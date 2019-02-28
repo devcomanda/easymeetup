@@ -52,6 +52,14 @@ public class User extends AbstractPersistable<Long> {
 
     private String activationKey;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+                CascadeType.MERGE})
+    @Setter
+    @Getter
+    @JoinTable(name = "user_meetup", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "meetup_id"))
+    private Set<Meetup> meetups = new HashSet<>();
+
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
