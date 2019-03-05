@@ -19,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -58,7 +60,7 @@ public class User extends AbstractPersistable<Long> {
     @Getter
     @JoinTable(name = "user_meetup", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "meetup_id"))
-    private Set<Meetup> meetups = new HashSet<>();
+    private List<Meetup> meetups = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)

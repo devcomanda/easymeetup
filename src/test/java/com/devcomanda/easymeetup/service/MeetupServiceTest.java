@@ -1,16 +1,20 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
+import com.devcomanda.easymeetup.factories.UsersFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -126,16 +130,27 @@ public class MeetupServiceTest {
     }
 
     @Test
-    @WithMockUser(username = "mail@mail.com")
-    public void shoulReturnUserHistoryMeetups(){
-        List<Meetup> allMeetups = new ArrayList<>();
-        allMeetups.add(MeetupsFactory.firstMeetup());
-        allMeetups.add(MeetupsFactory.secondMeetup());
+    public void shouldReturnUserHistoryMeetups(){
+        User firstUser = UsersFactory.firstUser();
 
-        when(meetupRepository.findUserMeetupsBeforeCurrentDate("mail@mail.com",
-                LocalDate.now()))
-                .thenReturn(allMeetups);
+        Meetup firstMeetup = MeetupsFactory.firstMeetup();
 
+        List<Meetup> metups = new ArrayList<>();
+        metups.add(firstMeetup);
+
+        Authentication auth = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
+        SecurityContextHolder.setContext(securityContext);
+
+        Mockito.when(auth.getPrincipal()).thenReturn(firstUser);
+
+        Mockito.when(meetupService.loadUserMeetupHistory(firstUser))
+                .thenReturn(metups);
+
+        List<Meetup> history = meetupService.loadUserMeetupHistory(firstUser);
+
+        assertThat(history.get(0)).isEqualToComparingFieldByField(metups);
     }
 
 }

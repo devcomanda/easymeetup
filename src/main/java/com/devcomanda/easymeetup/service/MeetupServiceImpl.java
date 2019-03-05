@@ -67,8 +67,6 @@ public class MeetupServiceImpl implements MeetupService {
         final String email = user.getEmail();
         final LocalDate currentDate = LocalDate.now();
 
-        List<Meetup> userMeetups = meetUpRepository.findUserMeetupsBeforeCurrentDate(email, currentDate);
-
-        return userMeetups;
+       return meetUpRepository.findUserMeetupsBeforeCurrentDate(email, currentDate);
     }
 }

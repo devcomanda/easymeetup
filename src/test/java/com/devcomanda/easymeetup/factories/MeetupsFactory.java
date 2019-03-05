@@ -5,7 +5,7 @@ import com.devcomanda.easymeetup.model.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
@@ -21,8 +21,7 @@ public final class MeetupsFactory {
     public static final LocalDateTime FIRST_MEETUP_END_DATE = LocalDateTime.of(2019, 01, 19, 22, 05, 13);
     public static final String FIRST_MEETUP_DESCRIPTION = "This is first meetup.";
     public static final String FIRST_MEETUP_SPEAKER = "First speaker";
-    public static final Set<User> FIRST_USERS = (Set<User>) Arrays.asList(UsersFactory.firstUser(), UsersFactory.secondUser());
-
+    public static final List<User> FIRST_USERS = Arrays.asList(UsersFactory.firstUser(), UsersFactory.secondUser());
 
     public static final Long SECOND_MEETUP_ID = 2L;
     public static final String SECOND_MEETUP_NAME = "Java approach in Chemistry";
@@ -31,7 +30,7 @@ public final class MeetupsFactory {
     public static final LocalDateTime SECOND_MEETUP_END_DATE = LocalDateTime.of(2019, 01, 20, 22, 05, 13);
     public static final String SECOND_MEETUP_DESCRIPTION = "This is second meetup.";
     public static final String SECOND_MEETUP_SPEAKER = "Second speaker";
-    public static final Set<User> SECOND_USERS = (Set<User>) Arrays.asList(UsersFactory.firstUser(), UsersFactory.secondUser());
+    public static final List<User> SECOND_USERS = Arrays.asList(UsersFactory.secondUser());
 
 
     public static Meetup newFirstMeetup(){
