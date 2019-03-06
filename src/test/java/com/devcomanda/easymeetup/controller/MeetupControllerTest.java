@@ -1,7 +1,9 @@
 package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
+import com.devcomanda.easymeetup.factories.UsersFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.service.MeetupService;
 import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.devcomanda.easymeetup.utils.TestUtils;
@@ -113,5 +115,18 @@ public class MeetupControllerTest {
         )
                 .andExpect(status().isFound())
                 .andExpect(jsonPath("$.name").value("Java for sceptics"));
+    }
+
+    @Test
+    public void loadUserMeetupsHistory() throws Exception{
+        final User user = UsersFactory.firstUser();
+        given(meetupService.loadUserMeetupHistory(user))
+                .willReturn(Arrays.asList(MeetupsFactory.firstMeetup()));
+
+        mockMvc.perform(get("/api/meetups?{user}", user)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isFound());
+
     }
 }

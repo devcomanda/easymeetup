@@ -150,7 +150,7 @@ public class MeetupServiceTest {
 
         List<Meetup> history = meetupService.loadUserMeetupHistory(firstUser);
 
-        assertThat(history.get(0)).isEqualToComparingFieldByField(metups);
+        assertThat(history.get(0)).isEqualTo(metups.get(0));
     }
 
 }
