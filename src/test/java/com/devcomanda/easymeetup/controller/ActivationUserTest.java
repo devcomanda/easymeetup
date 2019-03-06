@@ -1,6 +1,6 @@
 package com.devcomanda.easymeetup.controller;
 
-import com.devcomanda.easymeetup.factories.UsersFactory;
+import com.devcomanda.easymeetup.model.security.InvalidUserActivationKeyException;
 import com.devcomanda.easymeetup.service.UserSecurityService;
 import com.devcomanda.easymeetup.service.UserService;
 import org.junit.Test;
@@ -8,14 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -24,25 +23,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = UserController.class, secure = false)
-public class UserControllerTest {
+public class ActivationUserTest {
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
+    private MockMvc mvc;
 
     @MockBean
     private UserSecurityService userSecurityService;
 
-    @Test
-    public void findUserByIdTest() throws Exception {
-        given(userService.findUserById(1L)).willReturn(UsersFactory.firstUser());
+    @MockBean
+    private UserService userService;
 
-        mockMvc.perform(get("/api/accounts/{1}", 1)
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        )
-                .andExpect(status().isFound())
-                .andExpect(jsonPath("$.email").value("email@email.com"));
+    @Test
+    public void shouldActivateNewUser() throws Exception{
+        mvc.perform(get("/api/auth/verification")
+                .param("code", "code"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test(expected = InvalidUserActivationKeyException.class)
+    public void shouldReturnError() throws Exception{
+        given(userSecurityService.activate("code")).willThrow(InvalidUserActivationKeyException.class);
+
+        verify(userSecurityService.activate("code")).setActivationKey("code");
+
+        mvc.perform(get("/api/auth/verification")
+                .param("code", "code"));
     }
 }
