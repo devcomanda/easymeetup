@@ -1,7 +1,6 @@
 package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.service.MeetupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -53,13 +51,4 @@ public class MeetupController {
         return new ResponseEntity<>(meetup, HttpStatus.FOUND);
     }
 
-    @GetMapping(path = "/meetups/", produces = "application/json;charset=UTF-8"
-                )
-    public ResponseEntity<List<Meetup>> loadUserHistoryMeetups(
-            @RequestParam(name = "user") User user
-    ){
-        List<Meetup> meetupsHistory = meetUpService.loadUserMeetupHistory(user);
-
-        return new ResponseEntity<>(meetupsHistory, HttpStatus.FOUND);
-    }
 }

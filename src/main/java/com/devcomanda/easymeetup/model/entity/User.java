@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.CascadeType;
@@ -34,7 +33,6 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
-@ToString
 // TODO We should use custom settings for sequence configuration
 // because we use sql files for setting dev data
 public class User extends AbstractPersistable<Long> {
@@ -135,4 +133,17 @@ public class User extends AbstractPersistable<Long> {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", provider=" + provider +
+                ", providerId='" + providerId + '\'' +
+                ", activated=" + activated +
+                ", activationKey='" + activationKey + '\'' +
+                ", meetups=" + meetups +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

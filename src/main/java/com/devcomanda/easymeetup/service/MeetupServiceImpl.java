@@ -59,10 +59,10 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
-    public List<Meetup> loadUserMeetupHistory(User user) {
+    public List<Meetup> loadUserMeetupHistory() {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
-        user = (User) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
 
         final String email = user.getEmail();
         final LocalDate currentDate = LocalDate.now();

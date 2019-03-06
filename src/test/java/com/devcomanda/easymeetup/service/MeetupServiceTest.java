@@ -145,10 +145,10 @@ public class MeetupServiceTest {
 
         Mockito.when(auth.getPrincipal()).thenReturn(firstUser);
 
-        Mockito.when(meetupService.loadUserMeetupHistory(firstUser))
+        Mockito.when(meetupService.loadUserMeetupHistory())
                 .thenReturn(metups);
 
-        List<Meetup> history = meetupService.loadUserMeetupHistory(firstUser);
+        List<Meetup> history = meetupService.loadUserMeetupHistory();
 
         assertThat(history.get(0)).isEqualTo(metups.get(0));
     }

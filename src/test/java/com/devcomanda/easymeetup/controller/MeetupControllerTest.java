@@ -20,8 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -62,7 +64,7 @@ public class MeetupControllerTest {
     @Test
     public void findAllMeetupsTest() throws Exception {
 
-        given(meetupService.loadMeetups()).willReturn(Arrays.asList(
+        given(meetupService.loadMeetups()).willReturn(asList(
                 MeetupsFactory.firstMeetup(),
                 MeetupsFactory.secondMeetup()
         ));
@@ -120,10 +122,14 @@ public class MeetupControllerTest {
     @Test
     public void loadUserMeetupsHistory() throws Exception{
         final User user = UsersFactory.firstUser();
-        given(meetupService.loadUserMeetupHistory(user))
-                .willReturn(Arrays.asList(MeetupsFactory.firstMeetup()));
+        List<Meetup> meetups = new ArrayList<>();
+        meetups.add(MeetupsFactory.firstMeetup());
 
-        mockMvc.perform(get("/api/meetups?{user}", user)
+
+        given(meetupService.loadUserMeetupHistory())
+                .willReturn(meetups);
+
+        mockMvc.perform(get("/api/accounts/meetups}")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isFound());

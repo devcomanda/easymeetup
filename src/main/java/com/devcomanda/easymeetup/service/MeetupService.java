@@ -1,7 +1,6 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.User;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface MeetupService {
 
     Meetup updateMeetup(Meetup changedMeetup);
 
-    List<Meetup> loadUserMeetupHistory(User user);
+    List<Meetup> loadUserMeetupHistory();
 }
