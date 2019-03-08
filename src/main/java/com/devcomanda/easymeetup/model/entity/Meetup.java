@@ -9,9 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -36,6 +34,7 @@ public class Meetup extends AbstractPersistable<Long> {
     private String description;
     private String speaker;
 
+    @Enumerated (EnumType.STRING)
     private Status status;
 
     @Builder

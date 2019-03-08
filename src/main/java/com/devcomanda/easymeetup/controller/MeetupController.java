@@ -39,7 +39,7 @@ public class MeetupController {
             return new ResponseEntity<>(meetups, HttpStatus.FOUND);
         } else {
             List<Meetup> meetupsByStatus = meetups.stream()
-                    .filter(meetup -> meetup.getStatus() == status)
+                    .filter(meetup -> meetup.getStatus() == (status))
                     .collect(Collectors.toList());
             return new ResponseEntity<>(meetupsByStatus, HttpStatus.FOUND);
         }

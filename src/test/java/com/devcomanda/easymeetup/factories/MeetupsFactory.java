@@ -70,7 +70,7 @@ public final class MeetupsFactory {
                 .endDate(SECOND_MEETUP_END_DATE)
                 .description(SECOND_MEETUP_DESCRIPTION)
                 .speaker(SECOND_MEETUP_SPEAKER)
-                .status(IN_PROGRESS_STATUS)
+                .status(NEW_MEETUP_STATUS)
                 .build();
     }
 
