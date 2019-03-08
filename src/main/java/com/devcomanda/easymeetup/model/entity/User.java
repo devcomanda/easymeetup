@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.CascadeType;
@@ -33,6 +34,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
+@ToString
 // TODO We should use custom settings for sequence configuration
 // because we use sql files for setting dev data
 public class User extends AbstractPersistable<Long> {
@@ -54,8 +56,6 @@ public class User extends AbstractPersistable<Long> {
 
     @ManyToMany(cascade = {CascadeType.PERSIST,
                 CascadeType.MERGE})
-    @Setter
-    @Getter
     @JoinTable(name = "user_meetup", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "meetup_id"))
     private List<Meetup> meetups = new ArrayList<>();
@@ -131,19 +131,5 @@ public class User extends AbstractPersistable<Long> {
         int result = super.hashCode();
         result = 31 * result + (this.email != null ? this.email.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", provider=" + provider +
-                ", providerId='" + providerId + '\'' +
-                ", activated=" + activated +
-                ", activationKey='" + activationKey + '\'' +
-                ", meetups=" + meetups +
-                ", authorities=" + authorities +
-                '}';
     }
 }

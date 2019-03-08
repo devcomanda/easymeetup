@@ -1,9 +1,7 @@
 package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
-import com.devcomanda.easymeetup.factories.UsersFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.service.MeetupService;
 import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.devcomanda.easymeetup.utils.TestUtils;
@@ -19,9 +17,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
@@ -117,22 +112,5 @@ public class MeetupControllerTest {
         )
                 .andExpect(status().isFound())
                 .andExpect(jsonPath("$.name").value("Java for sceptics"));
-    }
-
-    @Test
-    public void loadUserMeetupsHistory() throws Exception{
-        final User user = UsersFactory.firstUser();
-        List<Meetup> meetups = new ArrayList<>();
-        meetups.add(MeetupsFactory.firstMeetup());
-
-
-        given(meetupService.loadUserMeetupHistory())
-                .willReturn(meetups);
-
-        mockMvc.perform(get("/api/accounts/meetups}")
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(print())
-                .andExpect(status().isFound());
-
     }
 }

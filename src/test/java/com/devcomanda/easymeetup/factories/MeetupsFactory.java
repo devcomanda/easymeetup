@@ -74,4 +74,30 @@ public final class MeetupsFactory {
                 .build();
     }
 
+    public static Meetup firstRepoIntTestMeetup(){
+        return Meetup
+                .builder()
+                .id(FIRST_MEETUP_ID)
+                .name(FIRST_MEETUP_NAME)
+                .address(FIRST_MEETUP_ADDRESS)
+                .startDate(FIRST_MEETUP_START_DATE)
+                .endDate(FIRST_MEETUP_END_DATE)
+                .description(FIRST_MEETUP_DESCRIPTION)
+                .speaker(FIRST_MEETUP_SPEAKER)
+                .build();
+    }
+
+    public static Meetup secondRepoIntTestMeetup(){
+        return Meetup
+                .builder()
+                .id(SECOND_MEETUP_ID)
+                .name(SECOND_MEETUP_NAME)
+                .address(SECOND_MEETUP_ADDRESS)
+                .startDate(SECOND_MEETUP_START_DATE)
+                .endDate(SECOND_MEETUP_END_DATE)
+                .description(SECOND_MEETUP_DESCRIPTION)
+                .speaker(SECOND_MEETUP_SPEAKER)
+                .build();
+    }
+
 }

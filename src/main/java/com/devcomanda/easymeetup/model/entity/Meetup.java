@@ -2,10 +2,10 @@ package com.devcomanda.easymeetup.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -22,7 +22,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@EqualsAndHashCode
 @ToString
 // TODO We should use custom settings for sequence configuration
 // because we use sql files for setting dev data
@@ -39,8 +38,19 @@ public class Meetup extends AbstractPersistable<Long> {
     private String description;
     private String speaker;
 
+    @Singular
     @ManyToMany(mappedBy = "meetups")
     private List<User> users = new ArrayList<>();
+
+    public Meetup(String name, String address, LocalDateTime startDate,
+                  LocalDateTime endDate, String description, String speaker) {
+        this.name = name;
+        this.address = address;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.speaker = speaker;
+    }
 
     @Builder
     private Meetup(
