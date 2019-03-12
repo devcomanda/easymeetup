@@ -42,16 +42,6 @@ public class Meetup extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "meetups")
     private List<User> users = new ArrayList<>();
 
-    public Meetup(String name, String address, LocalDateTime startDate,
-                  LocalDateTime endDate, String description, String speaker) {
-        this.name = name;
-        this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.description = description;
-        this.speaker = speaker;
-    }
-
     @Builder
     private Meetup(
             final Long id,
