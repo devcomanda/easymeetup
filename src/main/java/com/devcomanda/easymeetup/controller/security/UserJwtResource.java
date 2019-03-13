@@ -3,6 +3,7 @@ package com.devcomanda.easymeetup.controller.security;
 import com.devcomanda.easymeetup.controller.model.security.JwtTokenResponse;
 import com.devcomanda.easymeetup.controller.model.security.LoginRequest;
 import com.devcomanda.easymeetup.controller.model.security.NewUserRequest;
+import com.devcomanda.easymeetup.model.security.InvalidUserActivationKeyException;
 import com.devcomanda.easymeetup.service.UserSecurityService;
 import com.devcomanda.easymeetup.service.UserService;
 import com.devcomanda.easymeetup.service.security.jwt.JwtConfigurer;
@@ -18,14 +19,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import javax.websocket.server.PathParam;
+import java.net.URI;
 import java.util.stream.Collectors;
 
 /**
@@ -89,13 +88,16 @@ public class UserJwtResource {
         return  new ResponseEntity<>(userRequest, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/activate/{activationKey}")
-    public String displayUserActivationResult(@PathVariable ("activationKey") String activationKey){
+    @GetMapping(path = "/verification")
+    public ResponseEntity activateUser(@PathParam("code") String activationKey) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/"));
+
         try {
             userSecurityService.activate(activationKey);
-            return "successActivation";
-        }catch (Exception e){
-            return "errorActivation";
+            return new ResponseEntity<>(headers, HttpStatus.PERMANENT_REDIRECT);
+        }catch (InvalidUserActivationKeyException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

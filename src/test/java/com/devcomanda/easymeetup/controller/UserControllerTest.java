@@ -32,9 +32,6 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    @MockBean
-    private UserSecurityService userSecurityService;
-
     @Test
     public void findUserByIdTest() throws Exception {
         given(userService.findUserById(1L)).willReturn(UsersFactory.firstUser());
