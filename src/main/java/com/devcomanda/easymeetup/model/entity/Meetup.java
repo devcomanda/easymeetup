@@ -58,7 +58,7 @@ public class Meetup extends AbstractPersistable<Long> {
             final LocalDateTime endDate,
             final String description,
             final String speaker,
-            final Status status
+            final Status status,
             final List<User> users
     ) {
         super();
