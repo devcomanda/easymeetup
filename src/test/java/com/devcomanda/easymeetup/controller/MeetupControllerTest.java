@@ -84,7 +84,7 @@ public class MeetupControllerTest {
 
     @Test
     public void findAllMeetupsWithNewStatus() throws Exception {
-        given(meetupService.loadMeetups()).willReturn(Arrays.asList(
+        given(meetupService.loadMeetups()).willReturn(asList(
                 MeetupsFactory.firstMeetup(),
                 MeetupsFactory.secondMeetup()
         ));
