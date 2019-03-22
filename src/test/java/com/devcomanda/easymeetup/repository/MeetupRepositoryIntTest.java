@@ -1,7 +1,7 @@
 package com.devcomanda.easymeetup.repository;
 
-import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
+import com.devcomanda.easymeetup.model.entity.Meetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
@@ -33,8 +33,8 @@ public class MeetupRepositoryIntTest {
         assertThat(meetups)
                 .isNotNull()
                 .containsSequence(
-                        MeetupsFactory.firstMeetup(),
-                        MeetupsFactory.secondMeetup()
+                        MeetupsFactory.firstRepoIntTestMeetup(),
+                        MeetupsFactory.secondRepoIntTestMeetup()
                 );
     }
 }

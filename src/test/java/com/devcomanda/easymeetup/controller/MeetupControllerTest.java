@@ -3,39 +3,46 @@ package com.devcomanda.easymeetup.controller;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.service.MeetupService;
+import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.devcomanda.easymeetup.utils.TestUtils;
-import java.util.Arrays;
-import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = MeetupController.class, secure = false)
 @WithMockUser
+@MockBeans(value = {
+        @MockBean(UserDetailsService.class),
+        @MockBean(TokenProvider.class)
+})
 public class MeetupControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private MeetupService meetupService;
-
 
     @Test
     public void saveMeetupTest() throws Exception {
@@ -52,7 +59,7 @@ public class MeetupControllerTest {
     @Test
     public void findAllMeetupsTest() throws Exception {
 
-        given(meetupService.loadMeetups()).willReturn(Arrays.asList(
+        given(meetupService.loadMeetups()).willReturn(asList(
                 MeetupsFactory.firstMeetup(),
                 MeetupsFactory.secondMeetup()
         ));

@@ -1,21 +1,32 @@
 package com.devcomanda.easymeetup.service;
 
-import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
+import com.devcomanda.easymeetup.factories.UsersFactory;
+import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MeetupServiceTest {
 
@@ -116,6 +127,30 @@ public class MeetupServiceTest {
                 .thenReturn(Optional.empty());
 
         meetupService.updateMeetup(MeetupsFactory.secondMeetup());
+    }
+
+    @Test
+    public void shouldReturnUserHistoryMeetups(){
+        User firstUser = UsersFactory.firstUser();
+
+        Meetup firstMeetup = MeetupsFactory.firstMeetup();
+
+        List<Meetup> metups = new ArrayList<>();
+        metups.add(firstMeetup);
+
+        Authentication auth = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
+        SecurityContextHolder.setContext(securityContext);
+
+        Mockito.when(auth.getPrincipal()).thenReturn(firstUser);
+
+        Mockito.when(meetupService.loadUserMeetupHistory())
+                .thenReturn(metups);
+
+        List<Meetup> history = meetupService.loadUserMeetupHistory();
+
+        assertThat(history.get(0)).isEqualTo(metups.get(0));
     }
 
 }

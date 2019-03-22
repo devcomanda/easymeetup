@@ -17,9 +17,9 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "authority")
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
-@Setter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PUBLIC)
 @ToString
 public class Authority {
 

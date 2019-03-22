@@ -60,4 +60,5 @@ public class MeetupController {
         Meetup meetup = meetUpService.loadMeetup(id);
         return new ResponseEntity<>(meetup, HttpStatus.FOUND);
     }
+
 }

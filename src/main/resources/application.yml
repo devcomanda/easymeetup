@@ -1,9 +1,23 @@
 spring:
+  mail:
+    host: mail.local.host
+    port: 25
+    username: system@local.host
+    password: psw
+    properties:
+      mail:
+        smtp:
+          auth:true
+        starttls:
+          enable:true
+
+
   # this resources and mvc settings needed for exception handling
   resources:
     add-mappings: false
   mvc:
     throw-exception-if-no-handler-found: true
+    
   security:
       oauth2:
         client:
@@ -18,3 +32,9 @@ spring:
 jwt:
   secretKey: "some-key"
   tokenValidityInMilliseconds: 86400000
+
+emails:
+  from-user: devcomanda@gmail.com
+  activation-base-url: http://127.0.0.1:8080
+  tokenValidityInMilliseconds: 86400000
+

@@ -6,12 +6,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "meetup")
@@ -33,9 +41,13 @@ public class Meetup extends AbstractPersistable<Long> {
     private LocalDateTime endDate;
     private String description;
     private String speaker;
-
+  
     @Enumerated (EnumType.STRING)
     private Status status;
+  
+    @Singular
+    @ManyToMany(mappedBy = "meetups")
+    private List<User> users = new ArrayList<>();
 
     @Builder
     private Meetup(
@@ -47,6 +59,7 @@ public class Meetup extends AbstractPersistable<Long> {
             final String description,
             final String speaker,
             final Status status
+            final List<User> users
     ) {
         super();
         super.setId(id);
@@ -58,5 +71,6 @@ public class Meetup extends AbstractPersistable<Long> {
         this.description = description;
         this.speaker = speaker;
         this.status = status;
+        this.users = users;
     }
 }
