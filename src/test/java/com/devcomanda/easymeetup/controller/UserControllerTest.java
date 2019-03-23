@@ -2,12 +2,8 @@ package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.factories.UsersFactory;
-<<<<<<< HEAD
-import com.devcomanda.easymeetup.service.UserSecurityService;
-=======
 import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.service.MeetupService;
->>>>>>> 4aa03264dfce2e5811a511b6fc43e094a0fa089a
 import com.devcomanda.easymeetup.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
