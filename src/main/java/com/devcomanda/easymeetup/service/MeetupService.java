@@ -13,4 +13,6 @@ public interface MeetupService {
     List<Meetup> loadMeetups();
 
     Meetup updateMeetup(Meetup changedMeetup);
+
+    List<Meetup> loadUserMeetupHistory();
 }

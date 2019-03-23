@@ -18,8 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
-
+import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -60,7 +59,7 @@ public class MeetupControllerTest {
     @Test
     public void findAllMeetupsTest() throws Exception {
 
-        given(meetupService.loadMeetups()).willReturn(Arrays.asList(
+        given(meetupService.loadMeetups()).willReturn(asList(
                 MeetupsFactory.firstMeetup(),
                 MeetupsFactory.secondMeetup()
         ));
