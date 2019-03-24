@@ -35,6 +35,9 @@ public class MeetupServiceTest {
 
     private MeetupService meetupService;
 
+
+    private UserService userService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -151,6 +154,27 @@ public class MeetupServiceTest {
         List<Meetup> history = meetupService.loadUserMeetupHistory();
 
         assertThat(history.get(0)).isEqualTo(metups.get(0));
+    }
+
+    @Test
+    public void shouldAddUserToMeetup_when_registerUserToMeetup(){
+        Authentication auth = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
+        SecurityContextHolder.setContext(securityContext);
+
+        Meetup secondMeetup = MeetupsFactory.secondMeetup();
+
+        Mockito.when(auth.getPrincipal()).thenReturn(UsersFactory.firstUser());
+
+        Mockito.when(meetupRepository.findById(MeetupsFactory.SECOND_MEETUP_ID))
+                .thenReturn(Optional.ofNullable(MeetupsFactory.secondMeetup()));
+        Mockito.when(meetupRepository.save(secondMeetup))
+                .thenReturn(MeetupsFactory.newSecondMeetup());
+
+        meetupService.registerUserToMeetup(secondMeetup.getId());
+
+        assertThat(MeetupsFactory.secondMeetup().getUsers()).contains(UsersFactory.firstUser());
     }
 
 }

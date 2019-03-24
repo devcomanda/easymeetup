@@ -42,5 +42,4 @@ public class UserController {
 
         return new ResponseEntity<>(meetupsHistory, HttpStatus.FOUND);
     }
-
 }

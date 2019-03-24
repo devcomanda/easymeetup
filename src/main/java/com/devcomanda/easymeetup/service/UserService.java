@@ -7,4 +7,6 @@ public interface UserService {
     User saveUser(NewUserRequest userReq, boolean isActive);
 
     User findUserById(Long id);
+
+    User getAuthenticatedUser();
 }

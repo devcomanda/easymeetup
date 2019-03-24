@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -45,10 +46,15 @@ public class MeetupController {
         return new ResponseEntity<>(this.meetUpService.updateMeetup(meetup), HttpStatus.OK);
     }
 
-    @GetMapping(path = "meetups/{id}")
+    @GetMapping(path = "/meetups/{id}")
     public ResponseEntity<Meetup> loadMeetupById(@PathVariable ("id") long id){
         Meetup meetup = meetUpService.loadMeetup(id);
         return new ResponseEntity<>(meetup, HttpStatus.FOUND);
     }
 
+    @RequestMapping(path = "/meetups/register/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<Meetup> registerUserToMeetup(@PathVariable ("id") Long id, @RequestBody Meetup meetup){
+        meetUpService.registerUserToMeetup(id);
+        return new ResponseEntity<>(meetup, HttpStatus.OK);
+    }
 }
