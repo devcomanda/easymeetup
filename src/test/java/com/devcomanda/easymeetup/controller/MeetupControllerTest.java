@@ -149,4 +149,3 @@ public class MeetupControllerTest {
                 .andExpect(jsonPath("$.name").value("Java approach in Chemistry"));
     }
 }
-}
