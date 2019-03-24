@@ -176,5 +176,4 @@ public class MeetupServiceTest {
 
         assertThat(MeetupsFactory.secondMeetup().getUsers()).contains(UsersFactory.firstUser());
     }
-
 }
