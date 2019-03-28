@@ -134,14 +134,13 @@ public class MeetupControllerTest {
     }
 
     @Test
-    @WithMockUser
     public void registerUserToMeetup() throws Exception {
         Meetup meetup = MeetupsFactory.newSecondMeetup();
 
         given(meetupRepository.save(meetup))
                 .willReturn(MeetupsFactory.newSecondMeetup());
 
-        mockMvc.perform(get("/api/meetups/register/{2}", 2)
+        mockMvc.perform(put("/api/meetups/register/{2}", 2)
                 .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.newSecondMeetup()))
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
