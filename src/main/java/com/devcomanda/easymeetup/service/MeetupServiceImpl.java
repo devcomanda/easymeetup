@@ -1,12 +1,19 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
+import com.devcomanda.easymeetup.model.entity.User;
+
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,6 +33,13 @@ public class MeetupServiceImpl implements MeetupService {
     @Override
     public List<Meetup> loadMeetups() {
         return meetUpRepository.findAll();
+    }
+
+    @Override
+    public List<Meetup> loadMeetupsByStatus(List<Meetup> meetups, Status status) {
+        return meetups.stream()
+                .filter(meetup -> meetup.getStatus() == (status))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,5 +66,17 @@ public class MeetupServiceImpl implements MeetupService {
         meetup.setEndDate(changedMeetup.getEndDate());
 
         return meetup;
+    }
+
+    @Override
+    public List<Meetup> loadUserMeetupHistory() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        final String email = user.getEmail();
+        final LocalDate currentDate = LocalDate.now();
+
+       return meetUpRepository.findUserMeetupsBeforeCurrentDate(email, currentDate);
     }
 }
