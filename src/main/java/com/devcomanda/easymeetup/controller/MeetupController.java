@@ -1,19 +1,17 @@
 package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
+import com.devcomanda.easymeetup.controller.converters.StatusConverter;
 import com.devcomanda.easymeetup.service.MeetupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -32,12 +30,24 @@ public class MeetupController {
     }
 
     @GetMapping(path = "/meetups", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<List<Meetup>> getAllMeetups() {
+    public ResponseEntity<List<Meetup>> getAllMeetups(@RequestParam(name = "status", required = false) Status status) {
         List<Meetup> meetups = meetUpService.loadMeetups();
+
         if (meetups.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else if (status == null) {
+            return new ResponseEntity<>(meetups, HttpStatus.FOUND);
+        } else {
+            List<Meetup> meetupsByStatus = meetups.stream()
+                    .filter(meetup -> meetup.getStatus() == (status))
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(meetupsByStatus, HttpStatus.FOUND);
         }
-        return new ResponseEntity<>(meetups, HttpStatus.FOUND);
+    }
+
+    @InitBinder //for converting String to Enum in getAllMeetups method
+    public void initBinder(final WebDataBinder webdataBinder) {
+        webdataBinder.registerCustomEditor(Status.class, new StatusConverter());
     }
 
     @PutMapping(path = "/meetups/{id}", produces = "application/json;charset=UTF-8")

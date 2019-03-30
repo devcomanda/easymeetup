@@ -1,6 +1,7 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.User;
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,6 +32,13 @@ public class MeetupServiceImpl implements MeetupService {
     @Override
     public List<Meetup> loadMeetups() {
         return meetUpRepository.findAll();
+    }
+
+    @Override
+    public List<Meetup> loadMeetupsByStatus(List<Meetup> meetups, Status status) {
+        return meetups.stream()
+                .filter(meetup -> meetup.getStatus() == (status))
+                .collect(Collectors.toList());
     }
 
     @Override

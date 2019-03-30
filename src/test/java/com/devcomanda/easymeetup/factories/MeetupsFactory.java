@@ -1,6 +1,7 @@
 package com.devcomanda.easymeetup.factories;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.User;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public final class MeetupsFactory {
     public static final LocalDateTime FIRST_MEETUP_END_DATE = LocalDateTime.of(2019, 01, 19, 22, 05, 13);
     public static final String FIRST_MEETUP_DESCRIPTION = "This is first meetup.";
     public static final String FIRST_MEETUP_SPEAKER = "First speaker";
+    public static final Status NEW_MEETUP_STATUS = Status.fromText("NEW");
     public static final List<User> FIRST_USERS = Arrays.asList(UsersFactory.firstUser(), UsersFactory.secondUser());
 
     public static final Long SECOND_MEETUP_ID = 2L;
@@ -30,8 +32,8 @@ public final class MeetupsFactory {
     public static final LocalDateTime SECOND_MEETUP_END_DATE = LocalDateTime.of(2019, 01, 20, 22, 05, 13);
     public static final String SECOND_MEETUP_DESCRIPTION = "This is second meetup.";
     public static final String SECOND_MEETUP_SPEAKER = "Second speaker";
+    public static final Status IN_PROGRESS_STATUS = Status.fromText("IN_PROGRESS");
     public static final List<User> SECOND_USERS = Arrays.asList(UsersFactory.secondUser());
-
 
     public static Meetup newFirstMeetup(){
         return Meetup
@@ -43,6 +45,7 @@ public final class MeetupsFactory {
                 .endDate(FIRST_MEETUP_END_DATE)
                 .description(FIRST_MEETUP_DESCRIPTION)
                 .speaker(FIRST_MEETUP_SPEAKER)
+                .status(NEW_MEETUP_STATUS)
                 .build();
     }
 
@@ -56,6 +59,7 @@ public final class MeetupsFactory {
                 .endDate(FIRST_MEETUP_END_DATE)
                 .description(FIRST_MEETUP_DESCRIPTION)
                 .speaker(FIRST_MEETUP_SPEAKER)
+                .status(NEW_MEETUP_STATUS)
                 .users(FIRST_USERS)
                 .build();
     }
@@ -70,6 +74,7 @@ public final class MeetupsFactory {
                 .endDate(SECOND_MEETUP_END_DATE)
                 .description(SECOND_MEETUP_DESCRIPTION)
                 .speaker(SECOND_MEETUP_SPEAKER)
+                .status(NEW_MEETUP_STATUS)
                 .users(SECOND_USERS)
                 .build();
     }

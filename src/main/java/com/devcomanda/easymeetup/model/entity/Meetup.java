@@ -1,5 +1,6 @@
 package com.devcomanda.easymeetup.model.entity;
 
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,9 @@ import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +41,9 @@ public class Meetup extends AbstractPersistable<Long> {
     private LocalDateTime endDate;
     private String description;
     private String speaker;
+  
+    @Enumerated (EnumType.STRING)
+    private Status status;
 
     @Singular
     @ManyToMany(mappedBy = "meetups")
@@ -51,8 +58,8 @@ public class Meetup extends AbstractPersistable<Long> {
             final LocalDateTime endDate,
             final String description,
             final String speaker,
+            final Status status,
             final List<User> users
-
     ) {
         super();
         super.setId(id);
@@ -63,6 +70,7 @@ public class Meetup extends AbstractPersistable<Long> {
         this.endDate = endDate;
         this.description = description;
         this.speaker = speaker;
+        this.status = status;
         this.users = users;
     }
 }
