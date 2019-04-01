@@ -16,7 +16,8 @@ class EventsList extends Component {
             .then(res => {
                 const event = res.data;
                 this.setState({ event });
-            })
+            }
+        )
     }
 
 
