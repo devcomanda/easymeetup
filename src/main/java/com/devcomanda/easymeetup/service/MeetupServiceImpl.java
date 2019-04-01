@@ -12,11 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 public class MeetupServiceImpl implements MeetupService {
+
     private final MeetupRepository meetUpRepository;
 
     public MeetupServiceImpl(final MeetupRepository meetUpRepository) {
@@ -47,7 +49,6 @@ public class MeetupServiceImpl implements MeetupService {
         return meetUpRepository.save(meetUp);
     }
 
-
     @Override
     @Transactional
     public Meetup updateMeetup(Meetup changedMeetup) {
@@ -77,5 +78,16 @@ public class MeetupServiceImpl implements MeetupService {
         final LocalDate currentDate = LocalDate.now();
 
        return meetUpRepository.findUserMeetupsBeforeCurrentDate(email, currentDate);
+    }
+
+    @Override
+    public void registerUserToMeetup(Long id) {
+        Optional<Meetup> meetup = meetUpRepository.findById(id);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        List<User> users = meetup.get().getUsers();
+        users.add(user);
+        updateMeetup(meetup.get());
     }
 }

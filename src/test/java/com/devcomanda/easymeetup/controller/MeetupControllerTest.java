@@ -2,6 +2,7 @@ package com.devcomanda.easymeetup.controller;
 
 import com.devcomanda.easymeetup.factories.MeetupsFactory;
 import com.devcomanda.easymeetup.model.entity.Meetup;
+import com.devcomanda.easymeetup.repository.MeetupRepository;
 import com.devcomanda.easymeetup.service.MeetupService;
 import com.devcomanda.easymeetup.service.security.jwt.TokenProvider;
 import com.devcomanda.easymeetup.utils.TestUtils;
@@ -43,6 +44,9 @@ public class MeetupControllerTest {
 
     @MockBean
     private MeetupService meetupService;
+
+    @MockBean
+    private MeetupRepository meetupRepository;
 
     @Test
     public void saveMeetupTest() throws Exception {
@@ -127,5 +131,20 @@ public class MeetupControllerTest {
         )
                 .andExpect(status().isFound())
                 .andExpect(jsonPath("$.name").value("Java for sceptics"));
+    }
+
+    @Test
+    public void registerUserToMeetup() throws Exception {
+        Meetup meetup = MeetupsFactory.newSecondMeetup();
+
+        given(meetupRepository.save(meetup))
+                .willReturn(MeetupsFactory.newSecondMeetup());
+
+        mockMvc.perform(put("/api/meetups/register/{2}", 2)
+                .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.newSecondMeetup()))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Java approach in Chemistry"));
     }
 }

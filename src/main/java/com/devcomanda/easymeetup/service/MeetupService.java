@@ -18,4 +18,6 @@ public interface MeetupService {
     Meetup updateMeetup(Meetup changedMeetup);
 
     List<Meetup> loadUserMeetupHistory();
+
+    void registerUserToMeetup(Long id);
 }
