@@ -44,7 +44,7 @@ public class Meetup extends AbstractPersistable<Long> {
   
     @Enumerated (EnumType.STRING)
     private Status status;
-  
+
     @Singular
     @ManyToMany(mappedBy = "meetups")
     private List<User> users = new ArrayList<>();

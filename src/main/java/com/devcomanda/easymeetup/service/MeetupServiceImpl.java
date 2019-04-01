@@ -3,7 +3,6 @@ package com.devcomanda.easymeetup.service;
 import com.devcomanda.easymeetup.model.entity.Meetup;
 import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.User;
-
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.springframework.security.core.Authentication;
