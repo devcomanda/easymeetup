@@ -20,4 +20,6 @@ public interface MeetupService {
     List<Meetup> loadUserMeetupHistory();
 
     void registerUserToMeetup(Long id);
+
+    void cancelMeetup(Long id);
 }

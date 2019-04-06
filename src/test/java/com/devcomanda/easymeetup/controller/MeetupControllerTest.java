@@ -135,7 +135,7 @@ public class MeetupControllerTest {
 
     @Test
     public void registerUserToMeetup() throws Exception {
-        Meetup meetup = MeetupsFactory.newSecondMeetup();
+        Meetup meetup = MeetupsFactory.secondMeetup();
 
         given(meetupRepository.save(meetup))
                 .willReturn(MeetupsFactory.newSecondMeetup());
@@ -146,5 +146,23 @@ public class MeetupControllerTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Java approach in Chemistry"));
+    }
+
+    @Test
+    @WithMockUser
+    public void cancelUserFromMeetup() throws Exception{
+        Meetup meetup = MeetupsFactory.newSecondMeetup();
+        Meetup actualMeetup = MeetupsFactory.secondMeetup();
+
+        given(meetupRepository.save(meetup))
+                .willReturn(actualMeetup);
+
+        mockMvc.perform(put("/api/meetups/unregister/{id}", 2)
+                .content(TestUtils.convertObjectToJsonBytes(actualMeetup))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.users[0].email").value("kbb@email.com"))
+                .andExpect(jsonPath("$.users[?(@.email=='email@email.com')]").doesNotExist());
     }
 }

@@ -10,8 +10,6 @@ import com.devcomanda.easymeetup.repository.UserRepository;
 import com.devcomanda.easymeetup.repository.security.AuthorityRepository;
 import com.devcomanda.easymeetup.utils.RandomUtil;
 import com.devcomanda.easymeetup.utils.SecurityUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,12 +67,5 @@ public class UserServiceImpl implements UserService {
         @Override
         public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
-    @Override
-    public User getAuthenticatedUser() {
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
     }
 }

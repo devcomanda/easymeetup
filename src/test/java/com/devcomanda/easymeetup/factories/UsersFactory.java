@@ -26,9 +26,9 @@ public final class UsersFactory {
     public static final List<Meetup> SECOND_USER_MEETUPS = Arrays.asList(MeetupsFactory.secondMeetup());
 
     public static User firstUser() {
-        User user = new User(FIRST_USER_EMAIL, FIRST_USER_PLAIN_PASSWORD);
-        user.addAuthorities(AuthoritiesFactory.userAuthority());
-        return user;
+        User firstUser = new User(FIRST_USER_EMAIL, FIRST_USER_PLAIN_PASSWORD);
+        firstUser.addAuthorities(AuthoritiesFactory.userAuthority());
+        return firstUser;
     }
 
     public static User secondUser(){
