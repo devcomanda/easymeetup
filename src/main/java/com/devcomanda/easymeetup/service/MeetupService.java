@@ -21,5 +21,5 @@ public interface MeetupService {
 
     void registerUserToMeetup(Long id);
 
-    void cancelMeetup(Long id);
+    Meetup cancelMeetup(Long id);
 }

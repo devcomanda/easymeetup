@@ -150,18 +150,16 @@ public class MeetupControllerTest {
 
     @Test
     public void cancelUserFromMeetup() throws Exception{
-        Meetup meetup = MeetupsFactory.newSecondMeetup();
-        Meetup actualMeetup = MeetupsFactory.secondMeetup();
 
-        given(meetupRepository.save(meetup))
-                .willReturn(actualMeetup);
+        given(meetupService.cancelMeetup(MeetupsFactory.SECOND_MEETUP_ID))
+                .willReturn(MeetupsFactory.secondMeetup());
 
         mockMvc.perform(put("/api/meetups/unregister/{id}", 2)
-                .content(TestUtils.convertObjectToJsonBytes(actualMeetup))
+                .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.newSecondMeetup()))
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
-                //todo the last line is  ok, but travis fails
-                //.andExpect(jsonPath("$.users[?(@.email=='email@email.com')]").doesNotExist());
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.users[?(@.email=='email@email.com')]").doesNotExist());
     }
 }

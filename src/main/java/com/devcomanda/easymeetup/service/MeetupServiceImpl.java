@@ -92,11 +92,13 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
-    public void cancelMeetup(Long id) {
+    public Meetup cancelMeetup(Long id) {
         Optional<Meetup> meetup = meetUpRepository.findById(id);
         User user = UserService.getAuthenticatedUser();
         List<User> users = meetup.get().getUsers();
         users.remove(user);
         updateMeetup(meetup.get());
+        Optional<Meetup> updatedMeetup = meetUpRepository.findById(id);
+        return updatedMeetup.get();
     }
 }
