@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -151,8 +152,8 @@ public class MeetupControllerTest {
     @Test
     public void cancelUserFromMeetup() throws Exception{
 
-        given(meetupService.cancelMeetup(MeetupsFactory.SECOND_MEETUP_ID))
-                .willReturn(MeetupsFactory.secondMeetup());
+        doReturn(MeetupsFactory.secondMeetup())
+                .when(meetupService).cancelMeetup(2L);
 
         mockMvc.perform(put("/api/meetups/unregister/{id}", 2)
                 .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.newSecondMeetup()))
