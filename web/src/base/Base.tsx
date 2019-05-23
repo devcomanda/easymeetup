@@ -16,8 +16,8 @@ class Base extends Component {
             <Fragment>
                 <header>Заголовк</header>
                 <main>
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/profile' component={Profile}/>
+                    <Route exact path='/' component={Home}/>
+                    <Route path='/profile' component={Profile}/>
                 </main>
                 <footer>Подвал</footer>
             </Fragment>

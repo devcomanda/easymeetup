@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
-// import { useState, useEffect } from 'react';
-import axios from 'axios';
 import EventCard from './EventCard';
 import Grid from '@material-ui/core/Grid';
+import { connect } from "react-redux";
+import { IEventsProps } from './actionTypes';
+import { getEvents } from './actions';
 
-
-class EventsList extends Component {
-
-    state = {
-        event: []
-    };
+class EventsList extends React.Component<IEventsProps> {
 
     componentDidMount() {
-        axios.get(`http://localhost:3000/events`)
-            .then(res => {
-                const event = res.data;
-                this.setState({ event });
-            }
-        )
+        this.props.getEvents();
     }
 
-
-    render() {
+        render() {
         return (
             <Grid
                 container
@@ -29,16 +19,30 @@ class EventsList extends Component {
                 justify="center"
                 alignItems="center"
             >
-                { this.state.event.map(( event: any) =>
+                {this.props.events.map(( event: any) =>
                     <EventCard
                         key={event.id}
                         description={event.description}
                         title={event.title}
                         date={event.date}
-                    />)}
+                    />
+                )}
             </Grid>
+
         );
     }
 }
 
-export  default  EventsList;
+const mapStateToProps = (state: any) => {
+    return {
+      events: state.events,
+    };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+    getEvents: () => {
+        dispatch(getEvents())
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsList);
