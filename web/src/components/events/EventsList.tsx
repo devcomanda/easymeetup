@@ -6,7 +6,12 @@ import { IEventsProps } from './actionTypes';
 import { getEvents } from './actions';
 
 class EventsList extends React.Component<IEventsProps> {
-    render() {
+
+    componentDidMount() {
+        this.props.getEvents();
+    }
+
+        render() {
         return (
             <Grid
                 container
@@ -22,7 +27,6 @@ class EventsList extends React.Component<IEventsProps> {
                         date={event.date}
                     />
                 )}
-                <button onClick={this.props.getEvents}>Get events</button>
             </Grid>
 
         );

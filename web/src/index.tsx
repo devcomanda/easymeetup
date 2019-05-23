@@ -12,7 +12,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({
     events
-});
+}  as any );
 
 const store = createStore(
     rootReducer,
