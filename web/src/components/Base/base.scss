@@ -1,0 +1,9 @@
+.brand-name-text {
+    color: #ffffff;
+}
+
+.link-hover {
+    &:hover {
+        color: gray;
+    }
+}

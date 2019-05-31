@@ -1,14 +1,18 @@
 import React from 'react';
+import 'bootstrap';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory as createHistory } from "history";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
-import events  from './components/events/reducer';
+import events  from './components/Events/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+export const history = createHistory();
 
 const rootReducer = combineReducers({
     events
@@ -17,15 +21,14 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunk))
-    // (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router  history={history}>
         <Provider store={store}>
             <App/>
         </Provider>        
-    </BrowserRouter>
+    </Router>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
