@@ -1,8 +1,8 @@
 package com.devcomanda.easymeetup.service;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.exceptions.MeetupNotFoundException;
 import com.devcomanda.easymeetup.repository.MeetupRepository;
 import org.springframework.security.core.Authentication;
@@ -89,5 +89,16 @@ public class MeetupServiceImpl implements MeetupService {
         List<User> users = meetup.get().getUsers();
         users.add(user);
         updateMeetup(meetup.get());
+    }
+
+    @Override
+    public Meetup cancelMeetup(Long id) {
+        Optional<Meetup> meetup = meetUpRepository.findById(id);
+        User user = UserService.getAuthenticatedUser();
+        List<User> users = meetup.get().getUsers();
+        users.remove(user);
+        updateMeetup(meetup.get());
+        Optional<Meetup> updatedMeetup = meetUpRepository.findById(id);
+        return updatedMeetup.get();
     }
 }

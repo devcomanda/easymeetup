@@ -74,4 +74,9 @@ public class MeetupController {
         meetUpService.registerUserToMeetup(id);
         return new ResponseEntity<>(meetup, HttpStatus.OK);
     }
+
+    @PutMapping(path = "/meetups/unregister/{id}")
+    public ResponseEntity<Meetup> deleteUserFromMeetup(@PathVariable ("id") Long id){
+        return new ResponseEntity<>(this.meetUpService.cancelMeetup(id), HttpStatus.OK);
+    }
 }

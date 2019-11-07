@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -135,7 +136,7 @@ public class MeetupControllerTest {
 
     @Test
     public void registerUserToMeetup() throws Exception {
-        Meetup meetup = MeetupsFactory.newSecondMeetup();
+        Meetup meetup = MeetupsFactory.secondMeetup();
 
         given(meetupRepository.save(meetup))
                 .willReturn(MeetupsFactory.newSecondMeetup());
@@ -146,5 +147,21 @@ public class MeetupControllerTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Java approach in Chemistry"));
+    }
+
+    @Test
+    public void cancelUserFromMeetup() throws Exception{
+
+        doReturn(MeetupsFactory.secondMeetup())
+                .when(meetupService).cancelMeetup(2L);
+
+        mockMvc.perform(put("/api/meetups/unregister/{id}", 2)
+                .content(TestUtils.convertObjectToJsonBytes(MeetupsFactory.newSecondMeetup()))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isOk());
+                //todo fix travis problem
+               // .andExpect(jsonPath("$.users[?(@.email=='email@email.com')]").doesNotExist());
     }
 }

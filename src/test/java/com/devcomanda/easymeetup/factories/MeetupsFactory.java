@@ -1,12 +1,11 @@
 package com.devcomanda.easymeetup.factories;
 
 import com.devcomanda.easymeetup.model.entity.Meetup;
-import com.devcomanda.easymeetup.model.entity.enums.Status;
 import com.devcomanda.easymeetup.model.entity.User;
+import com.devcomanda.easymeetup.model.entity.enums.Status;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public final class MeetupsFactory {
     public static final String FIRST_MEETUP_DESCRIPTION = "This is first meetup.";
     public static final String FIRST_MEETUP_SPEAKER = "First speaker";
     public static final Status NEW_MEETUP_STATUS = Status.fromText("NEW");
-    public static final List<User> FIRST_USERS = Arrays.asList(UsersFactory.firstUser(), UsersFactory.secondUser());
+    public static final List<User> FIRST_USERS = new ArrayList<>();
 
     public static final Long SECOND_MEETUP_ID = 2L;
     public static final String SECOND_MEETUP_NAME = "Java approach in Chemistry";
@@ -34,7 +33,8 @@ public final class MeetupsFactory {
     public static final String SECOND_MEETUP_DESCRIPTION = "This is second meetup.";
     public static final String SECOND_MEETUP_SPEAKER = "Second speaker";
 
-    public static List<User> SECOND_USERS = Arrays.asList(UsersFactory.secondUser());
+    public static List<User> SECOND_USERS = new ArrayList<>();
+
     public static ArrayList<User> NEW_SECOND_USERS = new ArrayList<>();
 
     public static final Status IN_PROGRESS_STATUS = Status.fromText("IN_PROGRESS");
@@ -55,6 +55,8 @@ public final class MeetupsFactory {
     }
 
     public static Meetup firstMeetup() {
+        FIRST_USERS.add(UsersFactory.firstUser());
+        FIRST_USERS.add(UsersFactory.secondUser());
         return Meetup
                 .builder()
                 .id(FIRST_MEETUP_ID)
@@ -70,6 +72,7 @@ public final class MeetupsFactory {
     }
 
     public static Meetup secondMeetup() {
+        SECOND_USERS.add(UsersFactory.secondUser());
         return Meetup
                 .builder()
                 .id(SECOND_MEETUP_ID)
@@ -79,7 +82,7 @@ public final class MeetupsFactory {
                 .endDate(SECOND_MEETUP_END_DATE)
                 .description(SECOND_MEETUP_DESCRIPTION)
                 .speaker(SECOND_MEETUP_SPEAKER)
-                .users(NEW_SECOND_USERS)
+                .users(SECOND_USERS)
                 .build();
     }
 
@@ -98,7 +101,7 @@ public final class MeetupsFactory {
                 .speaker(SECOND_MEETUP_SPEAKER)
                 .users(NEW_SECOND_USERS)
                 .status(NEW_MEETUP_STATUS)
-                .users(SECOND_USERS)
+                .users(NEW_SECOND_USERS)
                 .build();
     }
 

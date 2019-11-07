@@ -176,4 +176,27 @@ public class MeetupServiceTest {
 
         assertThat(MeetupsFactory.secondMeetup().getUsers()).contains(UsersFactory.firstUser());
     }
+
+    @Test
+    public void cancellMeetupTest(){
+        Authentication auth = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
+        SecurityContextHolder.setContext(securityContext);
+
+        Meetup secondMeetup = MeetupsFactory.newSecondMeetup();
+        Meetup actualMeetup = MeetupsFactory.secondMeetup();
+
+        Mockito.when(auth.getPrincipal()).thenReturn(UsersFactory.firstUser());
+
+        Mockito.when(meetupRepository.findById(MeetupsFactory.SECOND_MEETUP_ID))
+                .thenReturn(Optional.ofNullable(MeetupsFactory.newSecondMeetup()));
+
+        Mockito.when(meetupRepository.save(secondMeetup))
+                .thenReturn(actualMeetup);
+
+        meetupService.cancelMeetup(MeetupsFactory.secondMeetup().getId());
+
+        assertThat(actualMeetup.getUsers().contains(UsersFactory.firstUser())).isFalse();
+    }
 }
